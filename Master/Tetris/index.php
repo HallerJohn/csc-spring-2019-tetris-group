@@ -21,8 +21,7 @@ and open the template in the editor.
            border:5px black;
            line-height: 0;
            border-style: solid;
-           border-color: black;
-           box-sizing: content-box;">
+           border-color: black;">
             <?php
         
             $object = new Field();
