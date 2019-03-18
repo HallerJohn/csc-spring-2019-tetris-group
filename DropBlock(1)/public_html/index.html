@@ -11,62 +11,63 @@ canvas {
 </head>
 <body onload="startGame()">
 <script>
-
+// myGamePiece 0-3 are the individual blocks in the Tetromino
 var myGamePiece;
 var myGamePiece1;
 var myGamePiece2;
 var myGamePiece3;
+// Piece Choice is for testing purposes
 var PieceChoice;
 
 // Initialize Block Elements
 function startGame() {
-    PieceChoice = 'I';
+    PieceChoice = 'O'; // Piece Selector for testing || Choices: O, T, I, J, L, S, Z
     if (PieceChoice === 'O'){ // Yellow == O Block
-        myGamePiece = new component(30, 30, "yellow", 120, 10);
-        myGamePiece1 = new component(30, 30, "yellow", 120, -21);
-        myGamePiece2 = new component(30, 30, "yellow", 151, 10);
-        myGamePiece3 = new component(30, 30, "yellow", 151, -21);
+        myGamePiece = new component(30, 30, "yellow", 120, 10);   // bottom-left
+        myGamePiece1 = new component(30, 30, "yellow", 120, -21); // top-left
+        myGamePiece2 = new component(30, 30, "yellow", 151, 10);  // bottom-right
+        myGamePiece3 = new component(30, 30, "yellow", 151, -21); // top-right
     }
-//    
+    
     else if (PieceChoice === 'T'){ // Purple == T Block
-        myGamePiece = new component(30, 30, "purple", 120, 10); // middle
+        myGamePiece = new component(30, 30, "purple", 120, 10);   // middle
         myGamePiece1 = new component(30, 30, "purple", 120, -21); // top
-        myGamePiece2 = new component(30, 30, "purple", 151, 10); // right
-        myGamePiece3 = new component(30, 30, "purple", 89, 10); //left
+        myGamePiece2 = new component(30, 30, "purple", 151, 10);  // right
+        myGamePiece3 = new component(30, 30, "purple", 89, 10);   // left
     }
     else if (PieceChoice === 'I'){ // Light Blue == I Block
-        myGamePiece = new component(30, 30, "#00ffed", 120, 10);
-        myGamePiece1 = new component(30, 30, "#00ffed", 151, 10);
-        myGamePiece2 = new component(30, 30, "#00ffed", 182, 10);
-        myGamePiece3 = new component(30, 30, "#00ffed", 89, 10);
+        myGamePiece = new component(30, 30, "#00ffed", 89, 10);   // left
+        myGamePiece1 = new component(30, 30, "#00ffed", 120, 10); // middle-left
+        myGamePiece2 = new component(30, 30, "#00ffed", 151, 10); // middle-right
+        myGamePiece3 = new component(30, 30, "#00ffed", 182, 10); // right
     }
 
     else if (PieceChoice === 'J'){ // Blue == J Block
-        myGamePiece = new component(30, 30, "blue", 120, 10);
-        myGamePiece1 = new component(30, 30, "blue", 151, 10);
-        myGamePiece2 = new component(30, 30, "blue", 89, 10);
-        myGamePiece3 = new component(30, 30, "blue", 89, -21);
+        myGamePiece = new component(30, 30, "blue", 120, 10);  // bottom-middle
+        myGamePiece1 = new component(30, 30, "blue", 151, 10); // bottom-right
+        myGamePiece2 = new component(30, 30, "blue", 89, 10);  // bottom-left
+        myGamePiece3 = new component(30, 30, "blue", 89, -21); // top
     }
 
     else if (PieceChoice === 'L'){ // Orange == L Block
-        myGamePiece = new component(30, 30, "orange", 120, 10);
-        myGamePiece1 = new component(30, 30, "orange", 151, 10);
-        myGamePiece2 = new component(30, 30, "orange", 89, 10);
-        myGamePiece3 = new component(30, 30, "orange", 151, -21);
+        myGamePiece = new component(30, 30, "orange", 120, 10);   // bottom-middle
+        myGamePiece1 = new component(30, 30, "orange", 151, 10);  // bottom-right
+        myGamePiece2 = new component(30, 30, "orange", 89, 10);   // bottom-left
+        myGamePiece3 = new component(30, 30, "orange", 151, -21); // top
     }
     
     else if (PieceChoice === 'S'){ // Green == S Block
-        myGamePiece = new component(30, 30, "limegreen", 120, 10); // middle
-        myGamePiece1 = new component(30, 30, "limegreen", 120, -21); // top
-        myGamePiece2 = new component(30, 30, "limegreen", 151, -21); // right
-        myGamePiece3 = new component(30, 30, "limegreen", 89, 10); //left
+        myGamePiece = new component(30, 30, "limegreen", 120, 10);   // bottom-right
+        myGamePiece1 = new component(30, 30, "limegreen", 120, -21); // top-left
+        myGamePiece2 = new component(30, 30, "limegreen", 151, -21); // top-right
+        myGamePiece3 = new component(30, 30, "limegreen", 89, 10);   // bottom-left
     }
     
     else if (PieceChoice === 'Z'){ // Red == Z Block
-        myGamePiece = new component(30, 30, "red", 120, 10); // left-bottom
-        myGamePiece1 = new component(30, 30, "red", 120, -21); // right-top
-        myGamePiece2 = new component(30, 30, "red", 151, 10); // right-bottom
-        myGamePiece3 = new component(30, 30, "red", 89, -21); //left-top
+        myGamePiece = new component(30, 30, "red", 120, 10);   // bottom-left
+        myGamePiece1 = new component(30, 30, "red", 120, -21); // top-right
+        myGamePiece2 = new component(30, 30, "red", 151, 10);  // bottom-right
+        myGamePiece3 = new component(30, 30, "red", 89, -21);  // top-left
     }
     
     myGameArea.start();
