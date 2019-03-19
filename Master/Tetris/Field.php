@@ -25,7 +25,7 @@ class Field{
         for($i=0;$i<$this->height;$i++){
             for($j=0;$j<$this->width;$j++){
                 if($this->grid[$i][$j]==0){
-                    echo "<img src= Images/WhiteTile.png width=25 height=25 />";
+                    echo "<img src= Images/WhiteTile.png width=25 height=25 />";  //Change the image source to load a different tile
                 }
             }
             echo ("<br>");
