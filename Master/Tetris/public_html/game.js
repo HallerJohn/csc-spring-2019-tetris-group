@@ -9,8 +9,7 @@ const context=canvas.getContext('2d');
 
 context.scale(20,20);
 
-context.fillstyle= '#000';
-context.fillRect(0,0,canvas.width,canvas.height);
+
 
 //Starting with the T block but will add more later
 var field = [
@@ -18,6 +17,22 @@ var field = [
     [1,1,1],
     [0,1,0],
 ];
+
+function draw(){
+    context.fillStyle= '#000';
+    context.fillRect(0,0,canvas.width,canvas.height);
+    writeField(playerData.field,playerData.position);
+}
+
+function updateField(){
+    draw();
+    requestAnimationFrame(updateField);
+//    setInterval(autoDrop(),1000000000);
+}
+
+function autoDrop(){
+    playerData.position.y+=1;
+}
 
 //writing the block to the canvas
 function writeField(field,adjust){
@@ -36,4 +51,4 @@ var playerData={
     field: field,
 }
 
-writeField(playerData.field,playerData.position);
+updateField();
