@@ -18,9 +18,47 @@ var field = [
     [0,1,0]
 ];
 
+function createMatrix(height,width){//Matrix used to test against player field for collision
+    var matrix=[];
+    
+    for(let i=0;i<width;i++){
+        matrix[i]=[];
+    }
+    for(let i=0;i<width;i++){
+        for(let j=0;j<height;j++){
+            matrix[i][j]=0;
+        }
+    }
+    return matrix;
+}
+
+function copyData(matrix,playerData){//copies player position onto collision matrix
+    playerData.field.forEach((row,y)=>{
+        row.forEach((value,x)=>{
+           if(value){
+               matrix[y+playerData.position.y][x+playerData.position.x]=value;
+           } 
+        });
+    });
+}
+
+function collision(matrix,playerData){//detects collision with walls/blocks
+    var f=playerData.field;
+    var p=playerData.position;
+    for(let y=0;y<f.length;y++){
+        for(let x=0;x<f[y].length;x++){
+            if(f[y][x]!==0&&(matrix[y+p.y]&&matrix[y+p.y][x+p.x])!==0){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 function draw(){
     context.fillStyle= '#000';
     context.fillRect(0,0,canvas.width,canvas.height);
+    writeField(matrix,{x:0,y:0});//print collision matrix to show blocks that hit bottom
     writeField(playerData.field,playerData.position);
 }
 
@@ -53,37 +91,51 @@ function writeField(field,adjust){
     });
 }
 
+var matrix=createMatrix(12,20);
+
 var playerData={
     position: {x:5,y:0},
     field: field
 };
 
-// function move(axis,dir){
-//     if(axis==='x')playerData.position.x+=dir;
-//     else if(axis==='y')playerData.position.y+=dir;
-//     console.log("X val="+playerData.position.x);
-// }
+ function move(axis,dir){//switched back to this move function since the collision matrix already detects sides
+     if(axis==='x'){
+         playerData.position.x+=dir;
+         if(collision(matrix,playerData)){//if player hits something on x-axis it will move it back
+             playerData.position.x-=dir;
+             
+         }
+        }
+     else if(axis==='y'){
+         playerData.position.y+=dir;
+         if(collision(matrix,playerData)){//if player hit something on y-axis
+             playerData.position.y--;//move it back up
+             copyData(matrix,playerData);//copy to collision matrix
+             playerData.position.y=0;//reset player to the top
+         }
+     }
+ }
 
-function move(axis,dir){
-   
-   // Side and Bottom detection does NOT take rotated piece into consideration yet!!
-   
-   if(axis==='x'){
-       // if x position is at one of the walls, only allows movement away
-       if (playerData.position.x!==9&&playerData.position.x!==0)
-           playerData.position.x+=dir;
-       else if (playerData.position.x === 9 && dir ===-1)
-           playerData.position.x+=dir; // Side Detection
-       else if (playerData.position.x === 0 && dir ===1)
-           playerData.position.x+=dir;} // Side Detection
-   
-   else if(axis==='y'){
-       // if y postitoin is at the bottom, stops vertical movement
-       if (playerData.position.y<=16)
-           playerData.position.y+=dir; // Bottom Detection
-   console.log("X val="+playerData.position.x);
-   }
-}
+//function move(axis,dir){
+//   
+//   // Side and Bottom detection does NOT take rotated piece into consideration yet!!
+//   
+//   if(axis==='x'){
+//       // if x position is at one of the walls, only allows movement away
+//       if (playerData.position.x!==9&&playerData.position.x!==0)
+//           playerData.position.x+=dir;
+//       else if (playerData.position.x === 9 && dir ===-1)
+//           playerData.position.x+=dir; // Side Detection
+//       else if (playerData.position.x === 0 && dir ===1)
+//           playerData.position.x+=dir;} // Side Detection
+//   
+//   else if(axis==='y'){
+//       // if y postitoin is at the bottom, stops vertical movement
+//       if (playerData.position.y<=16)
+//           playerData.position.y+=dir; // Bottom Detection
+//   console.log("X val="+playerData.position.x);
+//   }
+//}
 
 function rotate(dir){  
     if(dir === 1)    //Clockwise Rotation
