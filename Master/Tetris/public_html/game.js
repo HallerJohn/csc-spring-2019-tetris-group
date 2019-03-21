@@ -62,7 +62,38 @@ function move(axis,dir){
     else if(axis==='y')playerData.position.y+=dir;
     console.log("X val="+playerData.position.x);
 }
+function rotate(dir){  
+    if(dir === 1)    //Clockwise Rotation
+    {
+        playerData.field = playerData.field.reverse();
 
+        for (var i = 0; i < 3; i++) 
+        {
+            for (var j = 0; j < i; j++) 
+            {
+                var temp = playerData.field[i][j];
+                playerData.field[i][j] = playerData.field[j][i];
+                playerData.field[j][i] = temp;
+            }
+        }
+    }
+    else if(dir === -1)  //Counter-Clockwise
+    {
+        playerData.field[0] = playerData.field[0].reverse();
+        playerData.field[1] = playerData.field[1].reverse();
+        playerData.field[2] = playerData.field[2].reverse();
+
+        for (var i = 0; i < 3; i++) 
+        {
+            for (var j = 0; j < i; j++) 
+            {
+                var temp = playerData.field[i][j];
+                playerData.field[i][j] = playerData.field[j][i];
+                playerData.field[j][i] = temp;
+            }
+        }
+    }
+}
 updateField();
 
 document.onkeydown=function(event){
@@ -78,6 +109,13 @@ document.onkeydown=function(event){
                 break;
         }case 38:{
                 move('y',-1);//TESTING ONLY REMOVE BEFORE FINAL GAME!!!!
+                break;
+        }case 69:{
+                rotate(1);
+                break;
+        }case 81:{
+                rotate(-1);
+                break;
         }
     }
 };
