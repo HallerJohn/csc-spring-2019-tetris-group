@@ -21,10 +21,10 @@ var field = [
 function createMatrix(height,width){//Matrix used to test against player field for collision
     var matrix=[];
     
-    for(let i=0;i<width;i++){
+    for(let i=0;i<width;i++){//fill array with more arrays
         matrix[i]=[];
     }
-    for(let i=0;i<width;i++){
+    for(let i=0;i<width;i++){//fill 2d array with 0s
         for(let j=0;j<height;j++){
             matrix[i][j]=0;
         }
@@ -35,7 +35,7 @@ function createMatrix(height,width){//Matrix used to test against player field f
 function copyData(matrix,playerData){//copies player position onto collision matrix
     playerData.field.forEach((row,y)=>{
         row.forEach((value,x)=>{
-           if(value){
+           if(value){//if value is non zero
                matrix[y+playerData.position.y][x+playerData.position.x]=value;
            } 
         });
@@ -47,7 +47,7 @@ function collision(matrix,playerData){//detects collision with walls/blocks
     var p=playerData.position;
     for(let y=0;y<f.length;y++){
         for(let x=0;x<f[y].length;x++){
-            if(f[y][x]!==0&&(matrix[y+p.y]&&matrix[y+p.y][x+p.x])!==0){
+            if(f[y][x]!==0&&(matrix[y+p.y]&&matrix[y+p.y][x+p.x])!==0){//detect if the walls exist or a collision
                 return true;
             }
         }
@@ -59,9 +59,10 @@ function draw(){
     context.fillStyle= '#000';
     context.fillRect(0,0,canvas.width,canvas.height);
     writeField(matrix,{x:0,y:0});//print collision matrix to show blocks that hit bottom
-    writeField(playerData.field,playerData.position);
+    writeField(playerData.field,playerData.position);//print current block being controlled
 }
 
+//These are use to control the drop speed
 var fps=1;//drops per second
 var now;
 var then=Date.now();
@@ -91,9 +92,9 @@ function writeField(field,adjust){
     });
 }
 
-var matrix=createMatrix(12,20);
+var matrix=createMatrix(12,20);//create the collision matrix
 
-var playerData={
+var playerData={//data for the block the player is controlling and that field
     position: {x:5,y:0},
     field: field
 };
@@ -111,9 +112,21 @@ var playerData={
          if(collision(matrix,playerData)){//if player hit something on y-axis
              playerData.position.y--;//move it back up
              copyData(matrix,playerData);//copy to collision matrix
-             playerData.position.y=0;//reset player to the top
+             reset();//reset player to the top
          }
      }
+ }
+ 
+ function reset(){//resets player position after a block is placed
+     playerData.position.y=0;
+     playerData.position.x=5;
+ }
+ 
+ function fullDrop(){
+     while(!collision(matrix,playerData)){
+         playerData.position.y++;
+     }
+     playerData.position.y--;
  }
 
 //function move(axis,dir){
@@ -151,6 +164,10 @@ function rotate(dir){
                 playerData.field[j][i] = temp;
             }
         }
+        if(collision(matrix,playerData)){//if there is a collision after rotating
+            if(playerData.position.x>0)playerData.position.x--;//if collision on the right
+            else playerData.position.x++;//if collision on the left
+        }
     }
     else if(dir === -1)  //Counter-Clockwise
     {
@@ -167,19 +184,23 @@ function rotate(dir){
                 playerData.field[j][i] = temp;
             }
         }
+        if(collision(matrix,playerData)){//if there is a collision after rotating
+            if(playerData.position.x>0)playerData.position.x--;//if collision on the right
+            else playerData.position.x++;//if collision on the left
+        }
     }
 }
 updateField();
 
-document.onkeydown=function(event){
+document.onkeydown=function(event){//controls
     switch(event.keyCode){
-        case 37:{
+        case 37:{       //left arrow key
                 move('x',-1);
                 break;
-        }case 39:{
+        }case 39:{      //right arrow key
                 move('x',1);
                 break;
-        }case 40:{
+        }case 40:{      //down arror key
                 move('y',1);
                 break;
         }case 38:{
@@ -190,6 +211,9 @@ document.onkeydown=function(event){
                 break;
         }case 81:{      //'Q' key, Counter-Clockwise
                 rotate(-1);
+                break;
+        }case 32:{
+                fullDrop();
                 break;
         }
     }
