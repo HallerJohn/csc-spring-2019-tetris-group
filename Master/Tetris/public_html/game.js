@@ -82,6 +82,8 @@ function move(axis,dir){
        if (playerData.position.y<=16)
            playerData.position.y+=dir; // Bottom Detection
    console.log("X val="+playerData.position.x);
+   }
+}
 
 function rotate(dir){  
     if(dir === 1)    //Clockwise Rotation
@@ -140,4 +142,4 @@ document.onkeydown=function(event){
         }
     }
 };
-    
+   
