@@ -57,30 +57,31 @@ var playerData={
     position: {x:5,y:0},
     field: field
 };
-function move(axis,dir){
-    if(axis==='x')playerData.position.x+=dir;
-    else if(axis==='y')playerData.position.y+=dir;
-    console.log("X val="+playerData.position.x);
-}
 
-//function move(axis,dir){
-//    
-//    // Side and Bottom detection does NOT take rotated piece into consideration yet!!
-//    
-//    if(axis==='x'){
-//        // if x position is at one of the walls, only allows movement away
-//        if (playerData.position.x!==9&&playerData.position.x!==0)
-//            playerData.position.x+=dir;
-//        else if (playerData.position.x === 9 && dir ===-1)
-//            playerData.position.x+=dir; // Side Detection
-//        else if (playerData.position.x === 0 && dir ===1)
-//            playerData.position.x+=dir;} // Side Detection
-//    
-//    else if(axis==='y'){
-//        // if y postitoin is at the bottom, stops vertical movement
-//        if (playerData.position.y<=16)
-//            playerData.position.y+=dir; // Bottom Detection
-//    console.log("X val="+playerData.position.x);
+// function move(axis,dir){
+//     if(axis==='x')playerData.position.x+=dir;
+//     else if(axis==='y')playerData.position.y+=dir;
+//     console.log("X val="+playerData.position.x);
+// }
+
+function move(axis,dir){
+   
+   // Side and Bottom detection does NOT take rotated piece into consideration yet!!
+   
+   if(axis==='x'){
+       // if x position is at one of the walls, only allows movement away
+       if (playerData.position.x!==9&&playerData.position.x!==0)
+           playerData.position.x+=dir;
+       else if (playerData.position.x === 9 && dir ===-1)
+           playerData.position.x+=dir; // Side Detection
+       else if (playerData.position.x === 0 && dir ===1)
+           playerData.position.x+=dir;} // Side Detection
+   
+   else if(axis==='y'){
+       // if y postitoin is at the bottom, stops vertical movement
+       if (playerData.position.y<=16)
+           playerData.position.y+=dir; // Bottom Detection
+   console.log("X val="+playerData.position.x);
 
 function rotate(dir){  
     if(dir === 1)    //Clockwise Rotation
