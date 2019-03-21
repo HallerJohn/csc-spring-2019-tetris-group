@@ -110,10 +110,10 @@ document.onkeydown=function(event){
         }case 38:{
                 move('y',-1);//TESTING ONLY REMOVE BEFORE FINAL GAME!!!!
                 break;
-        }case 69:{
+        }case 69:{      //'E' key, Clockwise
                 rotate(1);
                 break;
-        }case 81:{
+        }case 81:{      //'Q' key, Counter-Clockwise
                 rotate(-1);
                 break;
         }
