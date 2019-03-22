@@ -165,9 +165,8 @@ function rotate(dir){
             }
         }
         if(collision(matrix,playerData)){//if there is a collision after rotating
-            rotate(-1);
-//            if(playerData.position.x>0)playerData.position.x--;//if collision on the right
-//            else playerData.position.x++;//if collision on the left
+            if(playerData.position.x>0)playerData.position.x--;//if collision on the right
+            else playerData.position.x++;//if collision on the left
         }
     }
     else if(dir === -1)  //Counter-Clockwise
@@ -186,9 +185,8 @@ function rotate(dir){
             }
         }
         if(collision(matrix,playerData)){//if there is a collision after rotating
-            rotate(1);
-//            if(playerData.position.x>0)playerData.position.x--;//if collision on the right
-//            else playerData.position.x++;//if collision on the left
+            if(playerData.position.x>0)playerData.position.x--;//if collision on the right
+            else playerData.position.x++;//if collision on the left
         }
     }
 }
