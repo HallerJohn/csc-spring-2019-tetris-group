@@ -120,6 +120,11 @@ var playerData={//data for the block the player is controlling and that field
  function reset(){//resets player position after a block is placed
      playerData.position.y=0;
      playerData.position.x=5;
+     playerData.field = [ // reset the rotation
+    [0,0,0],
+    [1,1,1],
+    [0,1,0]
+];
  }
  
  function fullDrop(){
