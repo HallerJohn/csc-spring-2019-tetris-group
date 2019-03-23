@@ -150,6 +150,14 @@ var playerData={//data for the block the player is controlling and that field
 //   }
 //}
 
+function Arotate(dir){//this is a function for collision during rotating
+    rotate(dir);//normal rotation
+    if(collision(matrix,playerData)){//if a collsion happens after rotating
+        rotate(-dir);//rotate it back to make rotating action invalid
+    }
+}
+
+
 function rotate(dir){  
     if(dir === 1)    //Clockwise Rotation
     {
@@ -207,10 +215,10 @@ document.onkeydown=function(event){//controls
                 move('y',-1);//TESTING ONLY REMOVE BEFORE FINAL GAME!!!!
                 break;
         }case 69:{      //'E' key, Clockwise
-                rotate(1);
+                Arotate(1);
                 break;
         }case 81:{      //'Q' key, Counter-Clockwise
-                rotate(-1);
+                Arotate(-1);
                 break;
         }case 32:{
                 fullDrop();
