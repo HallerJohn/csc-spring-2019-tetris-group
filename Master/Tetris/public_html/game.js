@@ -30,48 +30,48 @@ function chooseField() {
             break;
         case 1: //O-block
             field = [
-                [0, 1, 1],
-                [0, 1, 1],
+                [0, 2, 2],
+                [0, 2, 2],
                 [0, 0, 0]
             ];
             txf=0;
             break;
         case 2: //s-block
             field = [
-                [0, 1, 1],
-                [1, 1, 0],
+                [0, 3, 3],
+                [3, 3, 0],
                 [0, 0, 0]
             ];
             txf=0;
             break;
         case 3: //z-block
             field = [
-                [1, 1, 0],
-                [0, 1, 1],
+                [4, 4, 0],
+                [0, 4, 4],
                 [0, 0, 0]
             ];
             txf=0;
             break;
         case 4: //J-block
             field = [
-                [0, 0, 1],
-                [0, 0, 1],
-                [0, 1, 1]
+                [0, 0, 5],
+                [0, 0, 5],
+                [0, 5, 5]
             ];
             txf=0;
             break;
         case 5: //L-block
             field = [
-                [1, 0, 0],
-                [1, 0, 0],
-                [1, 1, 0]
+                [6, 0, 0],
+                [6, 0, 0],
+                [6, 6, 0]
             ];
             txf=0;
             break;
         case 6: //I-block
             field = [
                 [0, 0, 0, 0],
-                [1, 1, 1, 1],
+                [7, 7, 7, 7],
                 [0, 0, 0, 0],
                 [0, 0, 0, 0]
             ];
@@ -147,9 +147,38 @@ function updateField() {
 function writeField(field, adjust) {
     field.forEach((row, y) => {
         row.forEach((value, x) => {
-            if (value !== 0) {
-                context.fillStyle = 'red';
-                context.fillRect(x + adjust.x, y + adjust.y, 1, 1);
+            if(value!==0){
+                switch(value){
+                    case 1:{
+                            context.fillStyle = 'yellow';
+                            context.fillRect(x + adjust.x, y + adjust.y, 1, 1);
+                            break;
+                    }case 2:{
+                            context.fillStyle = '#1a75ff';
+                            context.fillRect(x + adjust.x, y + adjust.y, 1, 1);
+                            break;
+                    }case 3:{
+                            context.fillStyle = '#4dff4d';
+                            context.fillRect(x + adjust.x, y + adjust.y, 1, 1);
+                            break;
+                    }case 4:{
+                            context.fillStyle = 'red';
+                            context.fillRect(x + adjust.x, y + adjust.y, 1, 1);
+                            break;
+                    }case 5:{
+                            context.fillStyle = 'aqua';
+                            context.fillRect(x + adjust.x, y + adjust.y, 1, 1);
+                            break;
+                    }case 6:{
+                            context.fillStyle = 'orange';
+                            context.fillRect(x + adjust.x, y + adjust.y, 1, 1);
+                            break;
+                    }case 7:{
+                            context.fillStyle = 'purple';
+                            context.fillRect(x + adjust.x, y + adjust.y, 1, 1);
+                            break;
+                    }
+                }
             }
         });
     });
@@ -188,9 +217,10 @@ function reset() {//resets player position after a block is placed
 
 function fullDrop() {
     while (!collision(matrix, playerData)) {
-        playerData.position.y++;
+         playerData.position.y++;
     }
     playerData.position.y--;
+    lineDel(matrix);//check if line needs to be deleted
 }
 
 //function move(axis,dir){
@@ -305,11 +335,14 @@ function lineDel(matrix) {
     var count = 0;//used to see if row is all 1's
     for (var i = 19; i>=0; i--) {
         for (var j = 11; j>=0; j--) {
-            if(matrix[i][j]===1){
-                count++; //adds to count to determine if there is 12 ones               
+            if(matrix[i][j]!==0){
+                count++; //adds to count to determine if there is 12 ones 
+                console.log(count);
             }
         }
+        console.log('end of loop');
         if(count>=12){
+            console.log('hi');
             for (var j = 0; j < 12; j++) {
                 for(var k=i;k>0;k--)//must be one less then then array set because there will be nothing to copy at the end
                 matrix[k][j] = matrix[k-1][j];
