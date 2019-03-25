@@ -177,10 +177,6 @@ function rotate(dir){
                 playerData.field[j][i] = temp;
             }
         }
-        if(collision(matrix,playerData)){//if there is a collision after rotating
-            if(playerData.position.x>0)playerData.position.x--;//if collision on the right
-            else playerData.position.x++;//if collision on the left
-        }
     }
     else if(dir === -1)  //Counter-Clockwise
     {
@@ -196,10 +192,6 @@ function rotate(dir){
                 playerData.field[i][j] = playerData.field[j][i];
                 playerData.field[j][i] = temp;
             }
-        }
-        if(collision(matrix,playerData)){//if there is a collision after rotating
-            if(playerData.position.x>0)playerData.position.x--;//if collision on the right
-            else playerData.position.x++;//if collision on the left
         }
     }
 }
