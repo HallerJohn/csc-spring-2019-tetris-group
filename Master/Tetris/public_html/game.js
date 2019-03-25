@@ -76,6 +76,7 @@ function chooseField() {
                 [0, 0, 0, 0]
             ];
             txf=1;
+            pos=0;
             break;
     }
     return field;
@@ -154,7 +155,7 @@ function writeField(field, adjust) {
                             context.fillRect(x + adjust.x, y + adjust.y, 1, 1);
                             break;
                     }case 2:{
-                            context.fillStyle = '#1a75ff';
+                            context.fillStyle = '#limegreen';
                             context.fillRect(x + adjust.x, y + adjust.y, 1, 1);
                             break;
                     }case 3:{
@@ -166,7 +167,7 @@ function writeField(field, adjust) {
                             context.fillRect(x + adjust.x, y + adjust.y, 1, 1);
                             break;
                     }case 5:{
-                            context.fillStyle = 'aqua';
+                            context.fillStyle = 'blue';
                             context.fillRect(x + adjust.x, y + adjust.y, 1, 1);
                             break;
                     }case 6:{
@@ -269,16 +270,39 @@ function rotate(dir) {
             }
         }
         if(txf===1){ //rotates if player field is 4x4
-            playerData.field = playerData.field.reverse();
-
-            for (var i = 0; i < 4; i++)
-            {
-                for (var j = 0; j < i; j++)
-                {
-                    var temp = playerData.field[i][j];
-                    playerData.field[i][j] = playerData.field[j][i];
-                    playerData.field[j][i] = temp;
-                }
+            switch(pos){
+                case 0: playerData.field=field = [
+                            [0, 0, 7, 0],
+                            [0, 0, 7, 0],
+                            [0, 0, 7, 0],
+                            [0, 0, 7, 0]
+                        ];
+                        pos++;
+                        break;
+                case 1: playerData.field=field = [
+                            [0, 0, 0, 0],
+                            [0, 0, 0, 0],
+                            [7, 7, 7, 7],
+                            [0, 0, 0, 0]
+                        ];
+                        pos++;
+                        break;
+                case 2: playerData.field=field = [
+                            [0, 7, 0, 0],
+                            [0, 7, 0, 0],
+                            [0, 7, 0, 0],
+                            [0, 7, 0, 0]
+                        ];
+                        pos++;
+                        break;
+                case 3: playerData.field=field = [
+                            [0, 0, 0, 0],
+                            [7, 7, 7, 7],
+                            [0, 0, 0, 0],
+                            [0, 0, 0, 0]
+                        ];
+                        pos=0;
+                        break;
             }
         }
         if (collision(matrix, playerData)) {//if there is a collision after rotating
@@ -371,7 +395,7 @@ document.onkeydown = function (event) {//controls
             break;
         }case 38:
         {
-            move('y', -1);//TESTING ONLY REMOVE BEFORE FINAL GAME!!!!
+            fullDrop();// up arrow for hard drop
             break;
         }case 69:
         {      //'E' key, Clockwise
