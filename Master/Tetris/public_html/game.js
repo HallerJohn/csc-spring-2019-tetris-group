@@ -320,39 +320,39 @@ function lineDel(matrix) {
     }
 }
 
-    updateField();
+updateField();
 
-    document.onkeydown = function (event) {//controls
-        switch (event.keyCode) {
-            case 37:
-            {       //left arrow key
-                move('x', -1);
-                break;
-            }case 39:
-            {      //right arrow key
-                move('x', 1);
-                break;
-            }case 40:
-            {      //down arror key
-                move('y', 1);
-                break;
-            }case 38:
-            {
-                move('y', -1);//TESTING ONLY REMOVE BEFORE FINAL GAME!!!!
-                break;
-            }case 69:
-            {      //'E' key, Clockwise
-                Arotate(1);
-                break;
-            }case 81:
-            {      //'Q' key, Counter-Clockwise
-                Arotate(-1);
-                break;
-            }case 32:
-            {
-                fullDrop();
-                break;
-            }
+document.onkeydown = function (event) {//controls
+    switch (event.keyCode) {
+        case 37:
+        {       //left arrow key
+            move('x', -1);
+            break;
+        }case 39:
+        {      //right arrow key
+            move('x', 1);
+            break;
+        }case 40:
+        {      //down arror key
+            move('y', 1);
+            break;
+        }case 38:
+        {
+            move('y', -1);//TESTING ONLY REMOVE BEFORE FINAL GAME!!!!
+            break;
+        }case 69:
+        {      //'E' key, Clockwise
+            Arotate(1);
+            break;
+        }case 81:
+        {      //'Q' key, Counter-Clockwise
+            Arotate(-1);
+            break;
+        }case 32:
+        {
+            fullDrop();
+            break;
         }
     }
-    ;
+}
+;
