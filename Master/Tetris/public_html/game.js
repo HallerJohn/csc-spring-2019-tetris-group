@@ -177,8 +177,6 @@ function rotate(dir){
                 playerData.field[j][i] = temp;
             }
         }
-        
-        }
     }
     else if(dir === -1)  //Counter-Clockwise
     {
@@ -194,8 +192,6 @@ function rotate(dir){
                 playerData.field[i][j] = playerData.field[j][i];
                 playerData.field[j][i] = temp;
             }
-        }
-        
         }
     }
 }
