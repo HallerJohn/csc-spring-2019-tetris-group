@@ -305,12 +305,13 @@ function rotate(dir) {
                         break;
             }
         }
-        if (collision(matrix, playerData)) {//if there is a collision after rotating
+        //this create trouble with the arotate function
+        /*if (collision(matrix, playerData)) {//if there is a collision after rotating
             if (playerData.position.x > 0)
                 playerData.position.x--;//if collision on the right
             else
                 playerData.position.x++;//if collision on the left
-        }
+        }*/
     } else if (dir === -1)  //Counter-Clockwise
     {
         if(txf===0){//rotate couonterclockwise if 3x3
@@ -343,13 +344,15 @@ function rotate(dir) {
                     playerData.field[j][i] = temp;
                 }
             }
-        }           
-        if (collision(matrix, playerData)) {//if there is a collision after rotating
+        }         
+        
+        //this create trouble with the arotate function
+        /*if (collision(matrix, playerData)) {//if there is a collision after rotating
             if (playerData.position.x > 0)
                 playerData.position.x--;//if collision on the right
             else
                 playerData.position.x++;//if collision on the left
-        }
+        }*/
     }
 }
 
