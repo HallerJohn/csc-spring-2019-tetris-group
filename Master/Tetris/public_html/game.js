@@ -14,11 +14,13 @@ context.scale(20, 20);
 //Starting with the T block but will add more later
 //creates a rondom block now but we should rename field to block or part or object
 var field = chooseField();
-var txf = 0;//used to distinguish from a 3x3 and 4x4
+var txf;//used to distinguish from a 3x3 and 4x4
+var pos;//used to determine the position of a I Block
 //chooses a rondom block to create
 function chooseField() {
     var block = Math.floor(Math.random() * 7);
     var field;
+    ///block=6; temporal to solve I Bugs
     switch (block) {
         case 0: //T-block
             field = [
@@ -246,9 +248,28 @@ function fullDrop() {
 //}
 
 function Arotate(dir) {//this is a function for collision during rotating
-    rotate(dir);//normal rotation
-    if (collision(matrix, playerData)) {//if a collsion happens after rotating
-        rotate(-dir);//rotate it back to make rotating action invalid
+    if(txf===0){
+        rotate(dir);//normal rotation
+        if (collision(matrix, playerData)) {//if a collsion happens after rotating
+            rotate(-dir);//rotate it back to make rotating action invalid
+            move('x',dir);
+            rotate(dir);
+            if (collision(matrix, playerData)) {//if a collsion happens after rotating
+                move('x',-dir);
+                rotate(-dir);//rotate it back to make rotating action invalid
+            }
+        }
+    }else if(txf===1){
+        rotate(dir);
+        if (collision(matrix, playerData)) {//if a collsion happens after rotating
+            rotate(-dir);//rotate it back to make rotating action invalid
+            move('x',2*dir);
+            rotate(dir);
+            if (collision(matrix, playerData)) {//if a collsion happens after rotating
+                move('x',-2*dir);
+                rotate(-dir);//rotate it back to make rotating action invalid
+            }
+        }
     }
 }
 
@@ -330,19 +351,39 @@ function rotate(dir) {
             }
         }    
         if(txf===1){//rotate counter clockwise if 4x4
-            playerData.field[0] = playerData.field[0].reverse();
-            playerData.field[1] = playerData.field[1].reverse();
-            playerData.field[2] = playerData.field[2].reverse();
-            playerData.field[3] = playerData.field[3].reverse();
-
-            for (var i = 0; i < 4; i++)
-            {
-                for (var j = 0; j < i; j++)
-                {
-                    var temp = playerData.field[i][j];
-                    playerData.field[i][j] = playerData.field[j][i];
-                    playerData.field[j][i] = temp;
-                }
+            switch(pos){
+                case 0: playerData.field=field = [
+                            [0, 0, 7, 0],
+                            [0, 0, 7, 0],
+                            [0, 0, 7, 0],
+                            [0, 0, 7, 0]
+                        ];
+                        pos=3;
+                        break;
+                case 1: playerData.field=field = [
+                            [0, 0, 0, 0],
+                            [0, 0, 0, 0],
+                            [7, 7, 7, 7],
+                            [0, 0, 0, 0]
+                        ];
+                        pos--;
+                        break;
+                case 2: playerData.field=field = [
+                            [0, 7, 0, 0],
+                            [0, 7, 0, 0],
+                            [0, 7, 0, 0],
+                            [0, 7, 0, 0]
+                        ];
+                        pos--;
+                        break;
+                case 3: playerData.field=field = [
+                            [0, 0, 0, 0],
+                            [7, 7, 7, 7],
+                            [0, 0, 0, 0],
+                            [0, 0, 0, 0]
+                        ];
+                        pos--;
+                        break;
             }
         }         
         
