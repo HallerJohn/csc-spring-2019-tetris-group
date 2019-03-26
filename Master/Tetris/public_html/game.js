@@ -255,8 +255,8 @@ function Arotate(dir) {//this is a function for collision during rotating
             move('x',dir);
             rotate(dir);
             if (collision(matrix, playerData)) {//if a collsion happens after rotating
-                move('x',-dir);
                 rotate(-dir);//rotate it back to make rotating action invalid
+                move('x',-dir);
             }
         }
     }else if(txf===1){
@@ -266,8 +266,8 @@ function Arotate(dir) {//this is a function for collision during rotating
             move('x',2*dir);
             rotate(dir);
             if (collision(matrix, playerData)) {//if a collsion happens after rotating
-                move('x',-2*dir);
                 rotate(-dir);//rotate it back to make rotating action invalid
+                move('x',2*dir);
             }
         }
     }
