@@ -1,8 +1,0 @@
-{
-    "name": "TetrisV2",
-    "version": "1.0.0",
-    "keywords": ["util", "functional", "server", "client", "browser"],
-    "author": "John Haller",
-    "contributors": [],
-    "dependencies": {}
-}

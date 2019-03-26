@@ -157,7 +157,7 @@ function writeField(field, adjust) {
                             context.fillRect(x + adjust.x, y + adjust.y, 1, 1);
                             break;
                     }case 2:{
-                            context.fillStyle = '#limegreen';
+                            context.fillStyle = 'limegreen';
                             context.fillRect(x + adjust.x, y + adjust.y, 1, 1);
                             break;
                     }case 3:{
