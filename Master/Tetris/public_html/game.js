@@ -357,33 +357,33 @@ function rotate(dir) {
         if(txf===1){//rotate counter clockwise if 4x4
             switch(pos){
                 case 0: playerData.field=field = [
-                            [0, 0, 7, 0],
-                            [0, 0, 7, 0],
-                            [0, 0, 7, 0],
-                            [0, 0, 7, 0]
-                        ];
-                        pos=3;
-                        break;
-                case 1: playerData.field=field = [
-                            [0, 0, 0, 0],
-                            [0, 0, 0, 0],
-                            [7, 7, 7, 7],
-                            [0, 0, 0, 0]
-                        ];
-                        pos--;
-                        break;
-                case 2: playerData.field=field = [
                             [0, 7, 0, 0],
                             [0, 7, 0, 0],
                             [0, 7, 0, 0],
                             [0, 7, 0, 0]
                         ];
+                        pos=3;
+                        break;
+                case 1: playerData.field=field = [
+                            [0, 0, 0, 0],
+                            [7, 7, 7, 7],
+                            [0, 0, 0, 0],
+                            [0, 0, 0, 0]
+                        ];
+                        pos--;
+                        break;
+                case 2: playerData.field=field = [
+                            [0, 0, 7, 0],
+                            [0, 0, 7, 0],
+                            [0, 0, 7, 0],
+                            [0, 0, 7, 0]
+                        ];
                         pos--;
                         break;
                 case 3: playerData.field=field = [
                             [0, 0, 0, 0],
-                            [7, 7, 7, 7],
                             [0, 0, 0, 0],
+                            [7, 7, 7, 7],
                             [0, 0, 0, 0]
                         ];
                         pos--;
