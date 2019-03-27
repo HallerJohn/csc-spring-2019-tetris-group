@@ -20,7 +20,7 @@ var pos;//used to determine the position of a I Block
 function chooseField() {
     var block = Math.floor(Math.random() * 7);
     var field;
-    block=6; //temporal to solve I Bugs
+    //block=6; //temporal to solve I Bugs
     switch (block) {
         case 0: //T-block
             field = [
@@ -250,31 +250,34 @@ function fullDrop() {
 function Arotate(dir) {//this is a function for collision during rotating
     if(txf===0){
         rotate(dir);//normal rotation
+        //moving the block to check if it is posible the rotation
         if (collision(matrix, playerData)) {//if a collsion happens after rotating
-            move('x',dir);
-            if (collision(matrix, playerData)) {//if a collsion happens after rotating
-                move('x',-dir);
+            move('x',dir);  //try to move the block to rotate 
+            if (collision(matrix, playerData)) {//if a collsion happens after moving
+                move('x',-dir); //try to  move in other direction to rotate
                 if(collision(matrix,playerData))
                    rotate(-dir);//rotate it back to make rotating action invalid
             }
         }
     }else if(txf===1){
         rotate(dir);//normal rotation
+        //moving the block to check if it is posible the rotation
         if (collision(matrix, playerData)) {//if a collsion happens after rotating
-            move('x',dir);
-            if (collision(matrix, playerData)) {//if a collsion happens after rotating
-                move('x',2*dir);
+            move('x',dir);          //try to move the block to rotate
+            if (collision(matrix, playerData)) {//if a collsion happens after moving
+                move('x',2*dir);     //try to move the block to rotate
                 if(collision(matrix,playerData))
-                    move('x',-dir);
-                    if (collision(matrix, playerData)) {//if a collsion happens after rotating
-                    move('x',-2*dir);
-                        if(collision(matrix,playerData))
-                        rotate(-dir);//rotate it back to make rotating action invalid
+                    move('x',-dir);  //try to move the block to rotate
+                    if (collision(matrix, playerData)) {//if a collsion happens after moving
+                    move('x',-2*dir);//try to move the block to rotate
+                        if(collision(matrix,playerData))//if all cases are invalid
+                        rotate(-dir);//rotate it back to make action invalid
                 }
             }
         }
     }
 }
+
 function rotate(dir) {
     if (dir === 1)    //Clockwise Rotation
     {
