@@ -20,7 +20,7 @@ var pos;//used to determine the position of a I Block
 function chooseField() {
     var block = Math.floor(Math.random() * 7);
     var field;
-    ///block=6; temporal to solve I Bugs
+    block=6; //temporal to solve I Bugs
     switch (block) {
         case 0: //T-block
             field = [
@@ -251,29 +251,30 @@ function Arotate(dir) {//this is a function for collision during rotating
     if(txf===0){
         rotate(dir);//normal rotation
         if (collision(matrix, playerData)) {//if a collsion happens after rotating
-            rotate(-dir);//rotate it back to make rotating action invalid
             move('x',dir);
-            rotate(dir);
             if (collision(matrix, playerData)) {//if a collsion happens after rotating
-                rotate(-dir);//rotate it back to make rotating action invalid
                 move('x',-dir);
+                if(collision(matrix,playerData))
+                   rotate(-dir);//rotate it back to make rotating action invalid
             }
         }
     }else if(txf===1){
-        rotate(dir);
+        rotate(dir);//normal rotation
         if (collision(matrix, playerData)) {//if a collsion happens after rotating
-            rotate(-dir);//rotate it back to make rotating action invalid
-            move('x',2*dir);
-            rotate(dir);
+            move('x',dir);
             if (collision(matrix, playerData)) {//if a collsion happens after rotating
-                rotate(-dir);//rotate it back to make rotating action invalid
                 move('x',2*dir);
+                if(collision(matrix,playerData))
+                    move('x',-dir);
+                    if (collision(matrix, playerData)) {//if a collsion happens after rotating
+                    move('x',-2*dir);
+                        if(collision(matrix,playerData))
+                        rotate(-dir);//rotate it back to make rotating action invalid
+                }
             }
         }
     }
 }
-
-
 function rotate(dir) {
     if (dir === 1)    //Clockwise Rotation
     {
