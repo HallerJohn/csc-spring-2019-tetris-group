@@ -20,7 +20,7 @@ var pos;//used to determine the position of a I Block
 function chooseField() {
     var block = Math.floor(Math.random() * 7);
     var field;
-    ///block=6; temporal to solve I Bugs
+    //block=6; //temporal to solve I Bugs
     switch (block) {
         case 0: //T-block
             field = [
@@ -126,6 +126,7 @@ function draw() {
     context.fillRect(0, 0, canvas.width, canvas.height);
     writeField(matrix, {x: 0, y: 0});//print collision matrix to show blocks that hit bottom
     writeField(playerData.field, playerData.position);//print current block being controlled
+    writeField(ghost.field, ghost.position,1);//print ghost block
 }
 
 //These are use to control the drop speed
@@ -143,14 +144,21 @@ function updateField() {
         then = now - (delta % interval);
         move('y', 1);
     }
+    ghostMove();//update ghost position
     draw();
 }
 
 //writing the block to the canvas
-function writeField(field, adjust) {
+function writeField(field, adjust,ghost=0) {
     field.forEach((row, y) => {
         row.forEach((value, x) => {
-            if(value!==0){
+            if(ghost){//if writing for the ghost
+                if(value!==0){
+                    context.fillStyle = 'rgba(255, 255, 255,.05)';//transparent color
+                    context.fillRect(x + adjust.x, y + adjust.y, 1, 1);
+                }
+            }
+            else if(value!==0){
                 switch(value){
                     case 1:{
                             context.fillStyle = 'yellow';
@@ -180,6 +188,9 @@ function writeField(field, adjust) {
                             context.fillStyle = 'purple';
                             context.fillRect(x + adjust.x, y + adjust.y, 1, 1);
                             break;
+                    }case -1:{
+                            context.fillStyle = 'rgba(255, 255, 255,.05)';
+                            context.fillRect(x + adjust.x, y + adjust.y, 1, 1);
                     }
                 }
             }
@@ -194,12 +205,19 @@ var playerData = {//data for the block the player is controlling and that field
     field: field
 };
 
+var ghost = {//ghost block
+    position: {x:playerData.position.x, y:playerData.position.y},
+    field:field
+};
+
 function move(axis, dir) {//switched back to this move function since the collision matrix already detects sides
+    
     if (axis === 'x') {
         playerData.position.x += dir;
+        ghostMove();//update ghost position
         if (collision(matrix, playerData)) {//if player hits something on x-axis it will move it back
             playerData.position.x -= dir;
-
+            ghostMove();//update ghost position
         }
     } else if (axis === 'y') {
         playerData.position.y += dir;
@@ -226,53 +244,47 @@ function fullDrop() {
     lineDel(matrix);//check if line needs to be deleted
 }
 
-//function move(axis,dir){
-//   
-//   // Side and Bottom detection does NOT take rotated piece into consideration yet!!
-//   
-//   if(axis==='x'){
-//       // if x position is at one of the walls, only allows movement away
-//       if (playerData.position.x!==9&&playerData.position.x!==0)
-//           playerData.position.x+=dir;
-//       else if (playerData.position.x === 9 && dir ===-1)
-//           playerData.position.x+=dir; // Side Detection
-//       else if (playerData.position.x === 0 && dir ===1)
-//           playerData.position.x+=dir;} // Side Detection
-//   
-//   else if(axis==='y'){
-//       // if y postitoin is at the bottom, stops vertical movement
-//       if (playerData.position.y<=16)
-//           playerData.position.y+=dir; // Bottom Detection
-//   console.log("X val="+playerData.position.x);
-//   }
-//}
+function ghostMove(){
+    ghost.position.y=playerData.position.y;//reset ghost to top
+    ghost.position.x=playerData.position.x;//reset ghost to x pos of player
+    ghost.field=playerData.field;//reset block position
+    while(!collision(matrix,ghost)){
+        ghost.position.y++;//move ghost down until collision
+    }
+    ghost.position.y--;//move ghost back up from collision
+}
+
 
 function Arotate(dir) {//this is a function for collision during rotating
     if(txf===0){
         rotate(dir);//normal rotation
+        //moving the block to check if it is posible the rotation
         if (collision(matrix, playerData)) {//if a collsion happens after rotating
-            rotate(-dir);//rotate it back to make rotating action invalid
-            move('x',dir);
-            rotate(dir);
-            if (collision(matrix, playerData)) {//if a collsion happens after rotating
-                move('x',-dir);
-                rotate(-dir);//rotate it back to make rotating action invalid
+            move('x',dir);  //try to move the block to rotate 
+            if (collision(matrix, playerData)) {//if a collsion happens after moving
+                move('x',-dir); //try to  move in other direction to rotate
+                if(collision(matrix,playerData))
+                   rotate(-dir);//rotate it back to make rotating action invalid
             }
         }
     }else if(txf===1){
-        rotate(dir);
+        rotate(dir);//normal rotation
+        //moving the block to check if it is posible the rotation
         if (collision(matrix, playerData)) {//if a collsion happens after rotating
-            rotate(-dir);//rotate it back to make rotating action invalid
-            move('x',2*dir);
-            rotate(dir);
-            if (collision(matrix, playerData)) {//if a collsion happens after rotating
-                move('x',-2*dir);
-                rotate(-dir);//rotate it back to make rotating action invalid
+            move('x',dir);          //try to move the block to rotate
+            if (collision(matrix, playerData)) {//if a collsion happens after moving
+                move('x',2*dir);     //try to move the block to rotate
+                if(collision(matrix,playerData))
+                    move('x',-dir);  //try to move the block to rotate
+                    if (collision(matrix, playerData)) {//if a collsion happens after moving
+                    move('x',-2*dir);//try to move the block to rotate
+                        if(collision(matrix,playerData))//if all cases are invalid
+                        rotate(-dir);//rotate it back to make action invalid
+                }
             }
         }
     }
 }
-
 
 function rotate(dir) {
     if (dir === 1)    //Clockwise Rotation
@@ -353,33 +365,33 @@ function rotate(dir) {
         if(txf===1){//rotate counter clockwise if 4x4
             switch(pos){
                 case 0: playerData.field=field = [
-                            [0, 0, 7, 0],
-                            [0, 0, 7, 0],
-                            [0, 0, 7, 0],
-                            [0, 0, 7, 0]
-                        ];
-                        pos=3;
-                        break;
-                case 1: playerData.field=field = [
-                            [0, 0, 0, 0],
-                            [0, 0, 0, 0],
-                            [7, 7, 7, 7],
-                            [0, 0, 0, 0]
-                        ];
-                        pos--;
-                        break;
-                case 2: playerData.field=field = [
                             [0, 7, 0, 0],
                             [0, 7, 0, 0],
                             [0, 7, 0, 0],
                             [0, 7, 0, 0]
                         ];
+                        pos=3;
+                        break;
+                case 1: playerData.field=field = [
+                            [0, 0, 0, 0],
+                            [7, 7, 7, 7],
+                            [0, 0, 0, 0],
+                            [0, 0, 0, 0]
+                        ];
+                        pos--;
+                        break;
+                case 2: playerData.field=field = [
+                            [0, 0, 7, 0],
+                            [0, 0, 7, 0],
+                            [0, 0, 7, 0],
+                            [0, 0, 7, 0]
+                        ];
                         pos--;
                         break;
                 case 3: playerData.field=field = [
                             [0, 0, 0, 0],
-                            [7, 7, 7, 7],
                             [0, 0, 0, 0],
+                            [7, 7, 7, 7],
                             [0, 0, 0, 0]
                         ];
                         pos--;
