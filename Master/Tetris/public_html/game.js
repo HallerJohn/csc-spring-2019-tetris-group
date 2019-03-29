@@ -9,6 +9,8 @@ const context = canvas.getContext('2d');
 
 context.scale(20, 20);
 
+var audio=document.getElementById("bgm");
+audio.volume=0.5;
 
 
 //Starting with the T block but will add more later
