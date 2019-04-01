@@ -11,6 +11,7 @@ context.scale(20, 20);
 
 var audio=document.getElementById("bgm");
 audio.volume=0.5;
+audio.playbackRate=1.0; // Able to increase speed of song over time
 
 
 //Starting with the T block but will add more later
@@ -133,18 +134,23 @@ function draw() {
 
 //These are use to control the drop speed
 var fps = 1;//drops per second
-var now;
+var now = Date.now();
 var then = Date.now();
+var counter =0; // Counts the number of milliseconds up to interval
 var interval = 1000 / fps;
 var delta;
 
 function updateField() {
     requestAnimationFrame(updateField);
-    now = Date.now();
-    delta = now - then;
-    if (delta > interval) {
-        then = now - (delta % interval);
-        move('y', 1);
+    now = Date.now(); // Now becomes current time
+    delta = now - then; // Get your delta between now and last update
+    then = now; // change last update to now
+    
+    counter += delta; // Increase counter by the number of milliseconds since last update
+    
+    if (counter > interval) { // If counter is greater than current interval
+        counter = 0; // Reset counter
+        move('y', 1); // Drop block by one
     }
     ghostMove();//update ghost position
     draw();
@@ -450,10 +456,12 @@ document.onkeydown = function (event) {//controls
         }case 40:
         {      //down arror key
             move('y', 1);
+            counter = 0; // If block is lowered, reset interval
             break;
         }case 38:
         {
             fullDrop();// up arrow for hard drop
+            counter = 1001; // If hard drop us pressed, force counter to be above interval
             break;
         }case 69:
         {      //'E' key, Clockwise
