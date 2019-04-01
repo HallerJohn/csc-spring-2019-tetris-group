@@ -165,7 +165,7 @@ function writeField(field, adjust,ghost=0) {
         row.forEach((value, x) => {
             if(ghost){//if writing for the ghost
                 if(value!==0){
-                    context.fillStyle = 'rgba(255, 255, 255,.30)';//transparent color // Slightly easier to see
+                    context.fillStyle = 'rgba(255, 255, 255,.20)';//transparent color // Slightly easier to see
                     context.fillRect(x + adjust.x, y + adjust.y, 1, 1);
                 }
             }
