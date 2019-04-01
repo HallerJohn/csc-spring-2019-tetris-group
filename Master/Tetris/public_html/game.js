@@ -242,6 +242,7 @@ function move(axis, dir) {//switched back to this move function since the collis
 }
 
 function reset() {//resets player position after a block is placed
+    drop.play();
     playerData.position.y = 0;
     playerData.position.x = 5;
     playerData.field = chooseField(); // choose new block with reset location
