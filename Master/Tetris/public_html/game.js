@@ -461,7 +461,7 @@ document.onkeydown = function (event) {//controls
         }case 38:
         {
             fullDrop();// up arrow for hard drop
-            counter = 1001; // If hard drop us pressed, force counter to be above interval
+            counter = 940; // If hard drop us pressed, force counter to be right below interval
             break;
         }case 69:
         {      //'E' key, Clockwise
