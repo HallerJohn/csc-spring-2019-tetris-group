@@ -13,6 +13,9 @@ var audio=document.getElementById("bgm");
 audio.volume=0.5;
 audio.playbackRate=1.0; // Able to increase speed of song over time
 
+var drop=new Audio() // Boop Sound for Hard Drop
+drop.src = "music/TetrisDrop.mp3";
+drop.volume=1;
 
 //Starting with the T block but will add more later
 //creates a rondom block now but we should rename field to block or part or object
@@ -461,7 +464,8 @@ document.onkeydown = function (event) {//controls
         }case 38:
         {
             fullDrop();// up arrow for hard drop
-            counter = 940; // If hard drop us pressed, force counter to be right below interval
+            drop.play(); // Boop Sound
+            counter = 925; // If hard drop us pressed, force counter to be above interval
             break;
         }case 69:
         {      //'E' key, Clockwise
