@@ -22,13 +22,26 @@ drop.volume=1;
 var field = chooseField();
 var txf;//used to distinguish from a 3x3 and 4x4
 var pos;//used to determine the position of a I Block
-//chooses a rondom block to create
+
+// Counts Tetrominos Dropped (ctrl+shift+J to view terminal)
+// ***Minor Bug*** Does not count first block dropped for some reason
+var tCount=0;
+var iCount=0;
+var oCount=0;
+var jCount=0;
+var lCount=0;
+var zCount=0;
+var sCount=0;
+
+//chooses a random block to create
 function chooseField() {
     var block = Math.floor(Math.random() * 7);
     var field;
     //block=6; //temporal to solve I Bugs
+    
     switch (block) {
         case 0: //T-block
+            tCount++;
             field = [
                 [0, 0, 0],
                 [1, 1, 1],
@@ -37,6 +50,7 @@ function chooseField() {
             txf = 0;
             break;
         case 1: //O-block
+            oCount++;
             field = [
                 [0, 2, 2],
                 [0, 2, 2],
@@ -45,6 +59,7 @@ function chooseField() {
             txf=0;
             break;
         case 2: //s-block
+            sCount++;
             field = [
                 [0, 3, 3],
                 [3, 3, 0],
@@ -53,6 +68,7 @@ function chooseField() {
             txf=0;
             break;
         case 3: //z-block
+            zCount++;
             field = [
                 [4, 4, 0],
                 [0, 4, 4],
@@ -61,6 +77,7 @@ function chooseField() {
             txf=0;
             break;
         case 4: //J-block
+            jCount++;
             field = [
                 [0, 0, 5],
                 [0, 0, 5],
@@ -69,6 +86,7 @@ function chooseField() {
             txf=0;
             break;
         case 5: //L-block
+            lCount++;
             field = [
                 [6, 0, 0],
                 [6, 0, 0],
@@ -77,6 +95,7 @@ function chooseField() {
             txf=0;
             break;
         case 6: //I-block
+            iCount++;
             field = [
                 [0, 0, 0, 0],
                 [7, 7, 7, 7],
@@ -87,6 +106,15 @@ function chooseField() {
             pos=0;
             break;
     }
+    console.log("--------------");
+    console.log("T-Blocks:%d\n",tCount);
+    console.log("I-Blocks:%d\n",iCount);
+    console.log("O-Blocks:%d\n",oCount);
+    console.log("L-Blocks:%d\n",lCount);
+    console.log("J-Blocks:%d\n",jCount);
+    console.log("S-Blocks:%d\n",sCount);
+    console.log("Z-Blocks:%d\n",zCount);
+    console.log("--------------");
     return field;
 }
 
@@ -429,12 +457,12 @@ function lineDel(matrix) {
         for (var j = 11; j>=0; j--) {
             if(matrix[i][j]!==0){
                 count++; //adds to count to determine if there is 12 ones 
-                console.log(count);
+//                 console.log(count);
             }
         }
-        console.log('end of loop');
+//         console.log('end of loop');
         if(count>=12){
-            console.log('hi');
+//             console.log('hi');
             for (var j = 0; j < 12; j++) {
                 for(var k=i;k>0;k--)//must be one less then then array set because there will be nothing to copy at the end
                 matrix[k][j] = matrix[k-1][j];
