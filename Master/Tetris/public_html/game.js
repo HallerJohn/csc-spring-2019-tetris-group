@@ -33,6 +33,9 @@ var lCount=0;
 var zCount=0;
 var sCount=0;
 
+//Score Counter; Increases by 1 for each line cleared
+var score = 0;
+
 //chooses a random block to create
 function chooseField() {
     var block = Math.floor(Math.random() * 7);
@@ -468,9 +471,21 @@ function lineDel(matrix) {
                 matrix[k][j] = matrix[k-1][j];
             }
             i++; //reset line to determine if new line is also all 1's
+            incrementScore();
         }
         count =0; //reset count for next line
     }
+}
+
+function incrementScore() {
+    //Increase fps after clearing a line
+    fps++;
+    interval = 1000 / fps;
+    
+    //Increment Score
+    score++;
+    console.log("~~~~~~~~Current Score~~~~~~~~");
+    console.log(score);
 }
 
 updateField();
