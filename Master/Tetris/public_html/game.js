@@ -505,7 +505,7 @@ function lineDel(matrix) {
 
 function increaseSpeed() {
     //Increase fps after reaching a certain score
-    if((score / 500) > threshold)
+    if((score / 1000) > threshold)
     {
         threshold = score / 1000;
         fps+= 0.25;
