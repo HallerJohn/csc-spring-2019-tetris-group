@@ -12,9 +12,20 @@ and open the template in the editor.
                 background: #2d2d39;
                 text-align: center;
             }
-            canvas{
+            #tetris{
                 border:solid .2em white;
                 height: 90vh;
+            }
+            #score{
+                position: relative;
+                width: 200px;
+                height: 400px;
+                top: 0px;
+                bottom: 0px;
+                left: 0px;
+                right: 0;
+                border:solid .2em white;
+                z-index: -1;
             }
         </style>
         <meta charset="UTF-8">
@@ -24,6 +35,7 @@ and open the template in the editor.
         <audio loop controls autoplay id="bgm">
             <source src="music/Tetris.mp3" type="audio/mpeg">
         </audio>
+        <canvas id="score" width="200" height="500"></canvas>
         <canvas id="tetris" width="240" height="400"></canvas>
         <script src="game.js"></script>
         

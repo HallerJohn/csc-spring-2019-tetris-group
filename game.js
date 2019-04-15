@@ -500,6 +500,12 @@ function lineDel(matrix) {
     gameOver(matrix);
 }
 
+function increaseSpeed() {
+    //Increase fps after clearing a line
+    fps+= 0.1;
+    interval = 1000 / fps;
+}
+
 function drawScore(){
     scoreContext.fillStyle = '#2F4F4F';
     scoreContext.fillRect(0, 0, scoreCanvas.width, scoreCanvas.height);
