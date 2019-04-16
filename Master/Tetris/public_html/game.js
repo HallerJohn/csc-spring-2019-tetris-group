@@ -40,28 +40,27 @@ var lCount=0;
 var zCount=0;
 var sCount=0;
 
-var fieldAry = new Array;
+var fieldAry = new Array;   //Array of blocks
+initField();    //Initialize the first 4 blocks of the game
 
-initField();
-
-function dropField(){
+function dropField(){   //drop down the blocks when one get used and generate a new one
     fieldAry[0]=fieldAry[1];
     fieldAry[1]=fieldAry[2];
     fieldAry[2]=fieldAry[3];
     fieldAry[3]=chooseField();
 }
 
-function initField(){
+function initField(){   //creates the first 4 blocks of game
     for(let i=0;i<4;i++){
         fieldAry[i]=chooseField();
     }
 }
 
-var next = {
+var next = {    //starting position for next display (probably not necessary or ideal)
     position: {x: 5, y: 0}
 };
 
-function writeNext(){
+function writeNext(){   //write the display for next blocks
     nextContext.fillStyle = '#2F4F4F';
     nextContext.fillRect(0, 0, nextCanvas.width, nextCanvas.height);
     writeField(nextContext, fieldAry[1], {x: 5, y: 0});
@@ -224,13 +223,13 @@ function updateField() {
     }
     ghostMove();//update ghost position
     draw();
-    writeNext();
+    writeNext();//update next block element
     drawScore();
 }
 
 //writing the block to the canvas
 function writeField(contxt, field, adjust,ghost=0) {
-    var contxt=contxt;
+    var contxt=contxt;//added this so i could reuse this function for next blocks
     field.forEach((row, y) => {
         row.forEach((value, x) => {
             if(ghost){//if writing for the ghost
@@ -283,12 +282,12 @@ var matrix = createMatrix(12, 20);//create the collision matrix
 
 var playerData = {//data for the block the player is controlling and that field
     position: {x: 5, y: 0},
-    field: fieldAry[0]
+    field: fieldAry[0]//now equal to first block in block array
 };
 
 var ghost = {//ghost block
     position: {x:playerData.position.x, y:playerData.position.y},
-    field:fieldAry[0]
+    field:fieldAry[0]//now equal to first block in block array
 };
 
 function move(axis, dir) {//switched back to this move function since the collision matrix already detects sides
@@ -315,8 +314,8 @@ function reset() {//resets player position after a block is placed
     drop.play();
     playerData.position.y = 0;
     playerData.position.x = 5;
-    dropField();
-    playerData.field=fieldAry[0];
+    dropField();    //drop down blocks in block array when used
+    playerData.field=fieldAry[0];   //set player block to next in array
 }
 
 function fullDrop() {
