@@ -6,10 +6,13 @@
 
 const canvas = document.getElementById('tetris');
 var scoreCanvas = document.getElementById('score');
+const nextCanvas = document.getElementById('next');
 const context = canvas.getContext('2d');
 const scoreContext = scoreCanvas.getContext('2d');
+const nextContext = nextCanvas.getContext('2d');
 
 context.scale(20, 20);
+nextContext.scale(20,20);
 
 var audio=document.getElementById("bgm");
 audio.volume=0.5;
@@ -37,9 +40,36 @@ var lCount=0;
 var zCount=0;
 var sCount=0;
 
-//Starting with the T block but will add more later
-//creates a rondom block now but we should rename field to block or part or object
-var field = chooseField();
+var fieldAry = new Array;
+
+initField();
+
+function dropField(){
+    fieldAry[0]=fieldAry[1];
+    fieldAry[1]=fieldAry[2];
+    fieldAry[2]=fieldAry[3];
+    fieldAry[3]=chooseField();
+}
+
+function initField(){
+    for(let i=0;i<4;i++){
+        fieldAry[i]=chooseField();
+    }
+}
+
+var next = {
+    position: {x: 5, y: 0}
+};
+
+function writeNext(){
+    nextContext.fillStyle = '#2F4F4F';
+    nextContext.fillRect(0, 0, nextCanvas.width, nextCanvas.height);
+    writeField(nextContext, fieldAry[1], {x: 5, y: 0});
+    writeField(nextContext, fieldAry[2], {x: 5, y: 5});
+    writeField(nextContext, fieldAry[3], {x: 5, y: 10});
+    
+}
+
 
 //chooses a random block to create
 function chooseField() {
@@ -167,9 +197,9 @@ function collision(matrix, playerData) {//detects collision with walls/blocks
 function draw() {
     context.fillStyle = '#000';
     context.fillRect(0, 0, canvas.width, canvas.height);
-    writeField(matrix, {x: 0, y: 0});//print collision matrix to show blocks that hit bottom
-    writeField(playerData.field, playerData.position);//print current block being controlled
-    writeField(ghost.field, ghost.position,1);//print ghost block
+    writeField(context, matrix, {x: 0, y: 0});//print collision matrix to show blocks that hit bottom
+    writeField(context, playerData.field, playerData.position);//print current block being controlled
+    writeField(context, ghost.field, ghost.position,1);//print ghost block
 }
 
 //These are use to control the drop speed
@@ -194,52 +224,54 @@ function updateField() {
     }
     ghostMove();//update ghost position
     draw();
+    writeNext();
     drawScore();
 }
 
 //writing the block to the canvas
-function writeField(field, adjust,ghost=0) {
+function writeField(contxt, field, adjust,ghost=0) {
+    var contxt=contxt;
     field.forEach((row, y) => {
         row.forEach((value, x) => {
             if(ghost){//if writing for the ghost
                 if(value!==0){
-                    context.fillStyle = 'rgba(255, 255, 255,.20)';//transparent color // Slightly easier to see
-                    context.fillRect(x + adjust.x, y + adjust.y, 1, 1);
+                    contxt.fillStyle = 'rgba(255, 255, 255,.20)';//transparent color // Slightly easier to see
+                    contxt.fillRect(x + adjust.x, y + adjust.y, 1, 1);
                 }
             }
             else if(value!==0){
                 switch(value){
                     case 1:{
-                            context.fillStyle = 'yellow';
-                            context.fillRect(x + adjust.x, y + adjust.y, 1, 1);
+                            contxt.fillStyle = 'yellow';
+                            contxt.fillRect(x + adjust.x, y + adjust.y, 1, 1);
                             break;
                     }case 2:{
-                            context.fillStyle = 'limegreen';
-                            context.fillRect(x + adjust.x, y + adjust.y, 1, 1);
+                            contxt.fillStyle = 'limegreen';
+                            contxt.fillRect(x + adjust.x, y + adjust.y, 1, 1);
                             break;
                     }case 3:{
-                            context.fillStyle = '#4dff4d';
-                            context.fillRect(x + adjust.x, y + adjust.y, 1, 1);
+                            contxt.fillStyle = '#4dff4d';
+                            contxt.fillRect(x + adjust.x, y + adjust.y, 1, 1);
                             break;
                     }case 4:{
-                            context.fillStyle = 'red';
-                            context.fillRect(x + adjust.x, y + adjust.y, 1, 1);
+                            contxt.fillStyle = 'red';
+                            contxt.fillRect(x + adjust.x, y + adjust.y, 1, 1);
                             break;
                     }case 5:{
-                            context.fillStyle = 'blue';
-                            context.fillRect(x + adjust.x, y + adjust.y, 1, 1);
+                            contxt.fillStyle = 'blue';
+                            contxt.fillRect(x + adjust.x, y + adjust.y, 1, 1);
                             break;
                     }case 6:{
-                            context.fillStyle = 'orange';
-                            context.fillRect(x + adjust.x, y + adjust.y, 1, 1);
+                            contxt.fillStyle = 'orange';
+                            contxt.fillRect(x + adjust.x, y + adjust.y, 1, 1);
                             break;
                     }case 7:{
-                            context.fillStyle = 'purple';
-                            context.fillRect(x + adjust.x, y + adjust.y, 1, 1);
+                            contxt.fillStyle = 'purple';
+                            contxt.fillRect(x + adjust.x, y + adjust.y, 1, 1);
                             break;
                     }case -1:{
-                            context.fillStyle = 'rgba(255, 255, 255,.05)';
-                            context.fillRect(x + adjust.x, y + adjust.y, 1, 1);
+                            contxt.fillStyle = 'rgba(255, 255, 255,.05)';
+                            contxt.fillRect(x + adjust.x, y + adjust.y, 1, 1);
                     }
                 }
             }
@@ -251,12 +283,12 @@ var matrix = createMatrix(12, 20);//create the collision matrix
 
 var playerData = {//data for the block the player is controlling and that field
     position: {x: 5, y: 0},
-    field: field
+    field: fieldAry[0]
 };
 
 var ghost = {//ghost block
     position: {x:playerData.position.x, y:playerData.position.y},
-    field:field
+    field:fieldAry[0]
 };
 
 function move(axis, dir) {//switched back to this move function since the collision matrix already detects sides
@@ -283,7 +315,8 @@ function reset() {//resets player position after a block is placed
     drop.play();
     playerData.position.y = 0;
     playerData.position.x = 5;
-    playerData.field = chooseField(); // choose new block with reset location
+    dropField();
+    playerData.field=fieldAry[0];
 }
 
 function fullDrop() {
