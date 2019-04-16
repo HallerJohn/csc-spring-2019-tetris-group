@@ -164,10 +164,11 @@ function collision(matrix, playerData) {//detects collision with walls/blocks
 
 function draw() {
     context.fillStyle = '#000';
-    context.fillRect(0, 0, canvas.width, canvas.height);
+    context.fillRect(0, 4, canvas.width, canvas.height);
     writeField(matrix, {x: 0, y: 0});//print collision matrix to show blocks that hit bottom
     writeField(playerData.field, playerData.position);//print current block being controlled
     writeField(ghost.field, ghost.position,1);//print ghost block
+    
 }
 
 //These are use to control the drop speed
@@ -245,10 +246,10 @@ function writeField(field, adjust,ghost=0) {
     });
 }
 
-var matrix = createMatrix(12, 20);//create the collision matrix
+var matrix = createMatrix(12, 24);//create the collision matrix
 
 var playerData = {//data for the block the player is controlling and that field
-    position: {x: 5, y: 0},
+    position: {x: 5, y: 4},
     field: field
 };
 
@@ -278,8 +279,9 @@ function move(axis, dir) {//switched back to this move function since the collis
 }
 
 function reset() {//resets player position after a block is placed
+    gameOver(matrix);
     drop.play();
-    playerData.position.y = 0;
+    playerData.position.y = 4;
     playerData.position.x = 5;
     playerData.field = chooseField(); // choose new block with reset location
 }
@@ -497,7 +499,7 @@ function lineDel(matrix) {
         }
     }
 //    console.log("Score:%d\n",score);
-    gameOver(matrix);
+    
 }
 
 function increaseSpeed() {
@@ -521,15 +523,17 @@ function drawScore(){
 }
 
 function gameOver(matrix){
-    for (var i = 0; i>=0; i--) {
+   
         for (var j = 11; j>=0; j--) {
-            if(matrix[i][j]!==0){
+            if(matrix[3][j]!==0&&collision(matrix,playerData)){
                 playGame=false;
-               console.log("Game Over"); 
+                alert("gameover!");
+               location.reload();
             }
         }
-    }
 }
+
+
 
 updateField();
 
