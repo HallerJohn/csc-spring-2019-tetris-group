@@ -27,8 +27,6 @@ var txf;//used to distinguish from a 3x3 and 4x4
 var pos;//used to determine the position of a I Block
 var score=0;//used to keep track of score, must be set to zero in new game but save high score later.
 var scoreTetris=0;//used to see if a tetris is scored in a row
-var level = 1;//Used to indicate current speed
-var threshold = 0;//Used to increase speed every 500 points
 
 // Counts Tetrominos Dropped (ctrl+shift+J to view terminal)
 // ***Minor Bug*** Does not count first block dropped for some reason
@@ -40,27 +38,28 @@ var lCount=0;
 var zCount=0;
 var sCount=0;
 
-var fieldAry = new Array;   //Array of blocks
-initField();    //Initialize the first 4 blocks of the game
+var fieldAry = new Array;
 
-function dropField(){   //drop down the blocks when one get used and generate a new one
+initField();
+
+function dropField(){
     fieldAry[0]=fieldAry[1];
     fieldAry[1]=fieldAry[2];
     fieldAry[2]=fieldAry[3];
     fieldAry[3]=chooseField();
 }
 
-function initField(){   //creates the first 4 blocks of game
+function initField(){
     for(let i=0;i<4;i++){
         fieldAry[i]=chooseField();
     }
 }
 
-var next = {    //starting position for next display (probably not necessary or ideal)
+var next = {
     position: {x: 5, y: 0}
 };
 
-function writeNext(){   //write the display for next blocks
+function writeNext(){
     nextContext.fillStyle = '#2F4F4F';
     nextContext.fillRect(0, 0, nextCanvas.width, nextCanvas.height);
     writeField(nextContext, fieldAry[1], {x: 5, y: 0});
@@ -69,6 +68,9 @@ function writeNext(){   //write the display for next blocks
     
 }
 
+//Starting with the T block but will add more later
+//creates a rondom block now but we should rename field to block or part or object
+//var field = chooseField();
 
 //chooses a random block to create
 function chooseField() {
@@ -144,15 +146,15 @@ function chooseField() {
             break;
     }
     
-    console.log("--------------");
-    console.log("T-Blocks:%d\n",tCount);
-    console.log("I-Blocks:%d\n",iCount);
-    console.log("O-Blocks:%d\n",oCount);
-    console.log("L-Blocks:%d\n",lCount);
-    console.log("J-Blocks:%d\n",jCount);
-    console.log("S-Blocks:%d\n",sCount);
-    console.log("Z-Blocks:%d\n",zCount);
-    console.log("--------------");
+//    console.log("--------------");
+//    console.log("T-Blocks:%d\n",tCount);
+//    console.log("I-Blocks:%d\n",iCount);
+//    console.log("O-Blocks:%d\n",oCount);
+//    console.log("L-Blocks:%d\n",lCount);
+//    console.log("J-Blocks:%d\n",jCount);
+//    console.log("S-Blocks:%d\n",sCount);
+//    console.log("Z-Blocks:%d\n",zCount);
+//    console.log("--------------");
     return field;
 }
 
@@ -223,13 +225,13 @@ function updateField() {
     }
     ghostMove();//update ghost position
     draw();
-    writeNext();//update next block element
+    writeNext();
     drawScore();
 }
 
 //writing the block to the canvas
 function writeField(contxt, field, adjust,ghost=0) {
-    var contxt=contxt;//added this so i could reuse this function for next blocks
+    var contxt=contxt;
     field.forEach((row, y) => {
         row.forEach((value, x) => {
             if(ghost){//if writing for the ghost
@@ -282,12 +284,12 @@ var matrix = createMatrix(12, 20);//create the collision matrix
 
 var playerData = {//data for the block the player is controlling and that field
     position: {x: 5, y: 0},
-    field: fieldAry[0]//now equal to first block in block array
+    field: fieldAry[0]
 };
 
 var ghost = {//ghost block
     position: {x:playerData.position.x, y:playerData.position.y},
-    field:fieldAry[0]//now equal to first block in block array
+    field:fieldAry[0]
 };
 
 function move(axis, dir) {//switched back to this move function since the collision matrix already detects sides
@@ -314,8 +316,9 @@ function reset() {//resets player position after a block is placed
     drop.play();
     playerData.position.y = 0;
     playerData.position.x = 5;
-    dropField();    //drop down blocks in block array when used
-    playerData.field=fieldAry[0];   //set player block to next in array
+    dropField();
+    playerData.field=fieldAry[0];
+//    playerData.field = chooseField(); // choose new block with reset location
 }
 
 function fullDrop() {
@@ -514,7 +517,6 @@ function lineDel(matrix) {
             }
             i++; //reset line to determine if new line is also all 1's
             fs=1;
-            increaseSpeed();
         }
         count =0; //reset count for next line
     }
@@ -535,17 +537,6 @@ function lineDel(matrix) {
     gameOver(matrix);
 }
 
-function increaseSpeed() {
-    //Increase fps after reaching a certain score
-    if((score / 1000) > threshold)
-    {
-        threshold = score / 1000;
-        fps+= 0.25;
-        interval = 1000 / fps;
-        level++;
-    }
-}
-
 function drawScore(){
     scoreContext.fillStyle = '#2F4F4F';
     scoreContext.fillRect(0, 0, scoreCanvas.width, scoreCanvas.height);
@@ -557,7 +548,7 @@ function drawScore(){
     scoreContext.fillText("Line: ", 10, 100);
     scoreContext.fillStyle = "Red";
     scoreContext.font = "28px arial";
-    scoreContext.fillText("Level: "+level, 10, 150);
+    scoreContext.fillText("Level: 1", 10, 150);
 }
 
 function gameOver(matrix){
