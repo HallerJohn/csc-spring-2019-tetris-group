@@ -48,6 +48,8 @@ function dropField(){
     fieldAry[1]=fieldAry[2];
     fieldAry[2]=fieldAry[3];
     fieldAry[3]=chooseField();
+    if(fieldAry[0].length===4)txf=1;
+    else if(fieldAry[0].length===3)txf=0;
 }
 
 function initField(){
@@ -91,7 +93,7 @@ function chooseField() {
                 [1, 1, 1],
                 [0, 1, 0]
             ];
-            txf = 0;
+            //txf = 0; this is initialiced in the dropfield function
             break;
         case 1: //O-block
             oCount++;
@@ -100,7 +102,7 @@ function chooseField() {
                 [0, 2, 2],
                 [0, 0, 0]
             ];
-            txf=0;
+            //txf=0;
             break;
         case 2: //s-block
             sCount++;
@@ -109,7 +111,7 @@ function chooseField() {
                 [3, 3, 0],
                 [0, 0, 0]
             ];
-            txf=0;
+            //txf=0;
             break;
         case 3: //z-block
             zCount++;
@@ -118,7 +120,7 @@ function chooseField() {
                 [0, 4, 4],
                 [0, 0, 0]
             ];
-            txf=0;
+            //txf=0;
             break;
         case 4: //J-block
             jCount++;
@@ -127,7 +129,7 @@ function chooseField() {
                 [0, 0, 5],
                 [0, 5, 5]
             ];
-            txf=0;
+            //txf=0;
             break;
         case 5: //L-block
             lCount++;
@@ -136,7 +138,7 @@ function chooseField() {
                 [6, 0, 0],
                 [6, 6, 0]
             ];
-            txf=0;
+            //txf=0;
             break;
         case 6: //I-block
             iCount++;
@@ -146,7 +148,7 @@ function chooseField() {
                 [0, 0, 0, 0],
                 [0, 0, 0, 0]
             ];
-            txf=1;
+            //txf=1;
             pos=0;
             break;
     }
@@ -278,6 +280,7 @@ function writeField(contxt, field, adjust,ghost=0) {
                     }case -1:{
                             contxt.fillStyle = 'rgba(255, 255, 255,.05)';
                             contxt.fillRect(x + adjust.x, y + adjust.y, 1, 1);
+                            break;
                     }
                 }
             }
