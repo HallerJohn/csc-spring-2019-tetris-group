@@ -613,10 +613,6 @@ document.onkeydown = function (event) {//controls
             {      //'Q' key, Counter-Clockwise
                 Arotate(-1);
                 break;
-            }case 32:
-            {
-                fullDrop();
-                break;
             }
         }
     }
