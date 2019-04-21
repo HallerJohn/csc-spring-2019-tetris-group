@@ -56,6 +56,8 @@ function initField(){
     for(let i=0;i<4;i++){
         fieldAry[i]=chooseField();
     }
+    if(fieldAry[0].length===4)txf=1;
+    else if(fieldAry[0].length===3)txf=0;
 }
 
 var next = {
