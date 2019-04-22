@@ -561,6 +561,7 @@ function increaseSpeed() {
     }
 }
 
+
 function drawScore(){
     scoreContext.fillStyle = '#2F4F4F';
     scoreContext.fillRect(0, 0, scoreCanvas.width, scoreCanvas.height);
