@@ -618,7 +618,7 @@ document.onkeydown = function (event) {//controls
             {
                 fullDrop();// up arrow for hard drop
                 drop.play(); // Boop Sound
-                counter = 925; // If hard drop us pressed, force counter to be above interval
+                counter = 955; // If hard drop us pressed, force counter to be above interval
                 break;
             }case 69:
             {      //'E' key, Clockwise
