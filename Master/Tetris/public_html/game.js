@@ -252,15 +252,15 @@ function writeField(contxt, field, adjust,ghost=0) {
             else if(value!==0){
                 switch(value){
                     case 1:{
-                            contxt.fillStyle = 'yellow';
+                            contxt.fillStyle = 'purple';
                             contxt.fillRect(x + adjust.x, y + adjust.y, 1, 1);
                             break;
                     }case 2:{
-                            contxt.fillStyle = 'limegreen';
+                            contxt.fillStyle = 'yellow';
                             contxt.fillRect(x + adjust.x, y + adjust.y, 1, 1);
                             break;
                     }case 3:{
-                            contxt.fillStyle = '#4dff4d';
+                            contxt.fillStyle = 'limegreen';
                             contxt.fillRect(x + adjust.x, y + adjust.y, 1, 1);
                             break;
                     }case 4:{
@@ -276,7 +276,7 @@ function writeField(contxt, field, adjust,ghost=0) {
                             contxt.fillRect(x + adjust.x, y + adjust.y, 1, 1);
                             break;
                     }case 7:{
-                            contxt.fillStyle = 'purple';
+                            contxt.fillStyle = 'cyan';
                             contxt.fillRect(x + adjust.x, y + adjust.y, 1, 1);
                             break;
                     }case -1:{
