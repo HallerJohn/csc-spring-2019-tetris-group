@@ -28,6 +28,8 @@ var pos;//used to determine the position of a I Block
 var score=0;//used to keep track of score, must be set to zero in new game but save high score later.
 var scoreTetris=0;//used to see if a tetris is scored in a row
 var pause=false;//used to determine if the game is paused
+var level = 1;//Used to indicate current speed
+var threshold = 0;//Used to increase speed every 500 points
 
 // Counts Tetrominos Dropped (ctrl+shift+J to view terminal)
 // ***Minor Bug*** Does not count first block dropped for some reason
@@ -527,6 +529,7 @@ function lineDel(matrix) {
             }
             i++; //reset line to determine if new line is also all 1's
             fs=1;
+            increaseSpeed();
         }
         count =0; //reset count for next line
     }
@@ -545,6 +548,17 @@ function lineDel(matrix) {
     }
 //    console.log("Score:%d\n",score);
     gameOver(matrix);
+}
+
+function increaseSpeed() {
+    //Increase fps after reaching a certain score
+    if((score / 500) > threshold)
+    {
+        threshold = score / 1000;
+        fps+= 0.25;
+        interval = 1000 / fps;
+        level++;
+    }
 }
 
 function drawScore(){
