@@ -617,7 +617,7 @@ document.onkeydown = function (event) {//controls
         }
     }
     switch (event.keyCode){
-            case 80:{
+            case 80:{ // 'P' key, Pause
                 paused();
                 break;
         }
