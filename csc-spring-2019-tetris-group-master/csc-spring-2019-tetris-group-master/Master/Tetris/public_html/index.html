@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Tetris</title>
+        <style>
+            body{
+                background: #2d2d39;
+                text-align: center;
+            }
+            #tetris{
+                border:solid .2em white;
+                height: 90vh;
+            }
+            #score{
+                position: relative;
+                width: 200px;
+                height: 400px;
+                top: 0px;
+                bottom: 0px;
+                left: 0px;
+                right: 0;
+                border:solid .2em white;
+                z-index: -1;
+            }
+            #next{
+                position: relative;
+                width: 200px;
+                height: 705px;
+                border:solid .2em white;
+            }
+        </style>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <audio loop controls autoplay id="bgm">
+            <source src="music/Tetris.mp3" type="audio/mpeg">
+        </audio>
+        <button id="pause" onclick="paused()">Pause</button>
+        <canvas id="score" width="200" height="500"></canvas>
+        <canvas id="tetris" width="240" height="400"></canvas>
+        <canvas id="next" width="200" height="500"></canvas>
+        <script src="game.js"></script>
+        
+    </body>
+</html>
