@@ -28,8 +28,6 @@ var pos;//used to determine the position of a I Block
 var score=0;//used to keep track of score, must be set to zero in new game but save high score later.
 var scoreTetris=0;//used to see if a tetris is scored in a row
 var pause=false;//used to determine if the game is paused
-var level = 1;//Used to indicate current speed
-var threshold = 0;//Used to increase speed every 500 points
 
 // Counts Tetrominos Dropped (ctrl+shift+J to view terminal)
 // ***Minor Bug*** Does not count first block dropped for some reason
@@ -194,6 +192,7 @@ function copyData(matrix, playerData) {//copies player position onto collision m
 }
 
 function collision(matrix, playerData) {//detects collision with walls/blocks
+    gameOver(matrix);
     var f = playerData.field;
     var p = playerData.position;
     for (let y = 0; y < f.length; y++) {
@@ -208,7 +207,7 @@ function collision(matrix, playerData) {//detects collision with walls/blocks
 
 function draw() {
     context.fillStyle = '#000';
-    context.fillRect(0, 0, canvas.width, canvas.height);
+    context.fillRect(0, 4, canvas.width, canvas.height);
     writeField(context, matrix, {x: 0, y: 0});//print collision matrix to show blocks that hit bottom
     writeField(context, playerData.field, playerData.position);//print current block being controlled
     writeField(context, ghost.field, ghost.position,1);//print ghost block
@@ -238,6 +237,7 @@ function updateField() {
         draw();
         writeNext();
         drawScore();
+        
 }
 
 //writing the block to the canvas
@@ -292,10 +292,10 @@ function writeField(contxt, field, adjust,ghost=0) {
     });
 }
 
-var matrix = createMatrix(12, 20);//create the collision matrix
+var matrix = createMatrix(12, 24);//create the collision matrix
 
 var playerData = {//data for the block the player is controlling and that field
-    position: {x: 5, y: 0},
+    position: {x: 5, y: 4},
     field: fieldAry[0]
 };
 
@@ -319,18 +319,32 @@ function move(axis, dir) {//switched back to this move function since the collis
                 playerData.position.y--;//move it back up
                 copyData(matrix, playerData);//copy to collision matrix
                 lineDel(matrix);//check if line needs to be deleted
-                reset();//reset player to the top
+                reset(matrix);//reset player to the top
             }
         }
 }
 
-function reset() {//resets player position after a block is placed
-    drop.play();
-    playerData.position.y = 0;
+function reset(matrix) {//resets player position after a block is placed
+    drop.play();   
+    
+    playerData.position.y = 4;
+    alterposition();
     playerData.position.x = 5;
     dropField();
     playerData.field=fieldAry[0];
-//    playerData.field = chooseField(); // choose new block with reset location
+    //    playerData.field = chooseField(); // choose new block with reset location
+}
+
+function alterposition(){// rise the position of new block higher as the rest block approaching to the top border
+    var a=6;
+    var b=3;
+    for (var j = 11; j>=0; j--) {
+            if(matrix[a][j]!==0){
+                playerData.position.y=b;
+                a--;
+                b--;
+            }
+        }
 }
 
 function fullDrop() {
@@ -513,7 +527,7 @@ function lineDel(matrix) {
     var count = 0;//used to see if row is all 1's
     var fs=0;//determines if any lines were destroyed so that the tetris can be checked
     var scoreMultiplier=0;
-    for (var i = 19; i>=0; i--) {
+    for (var i = 23; i>=0; i--) {
         for (var j = 11; j>=0; j--) {
             if(matrix[i][j]!==0){
                 count++; //adds to count to determine if there is 12 ones 
@@ -529,7 +543,6 @@ function lineDel(matrix) {
             }
             i++; //reset line to determine if new line is also all 1's
             fs=1;
-            increaseSpeed();
         }
         count =0; //reset count for next line
     }
@@ -547,20 +560,7 @@ function lineDel(matrix) {
         }
     }
 //    console.log("Score:%d\n",score);
-    gameOver(matrix);
 }
-
-function increaseSpeed() {
-    //Increase fps after reaching a certain score
-    if((score / 500) > threshold)
-    {
-        threshold = score / 1000;
-        fps+= 0.25;
-        interval = 1000 / fps;
-        level++;
-    }
-}
-
 
 function drawScore(){
     scoreContext.fillStyle = '#2F4F4F';
@@ -577,14 +577,14 @@ function drawScore(){
 }
 
 function gameOver(matrix){
-    for (var i = 0; i>=0; i--) {
-        for (var j = 11; j>=0; j--) {
-            if(matrix[i][j]!==0){
+    for (var j = 11; j>=0; j--) {
+            if(matrix[3][j]!==0){
                 playGame=false;
-               console.log("Game Over"); 
             }
         }
-    }
+        if(playGame==false){
+               location.reload();
+        }
 }
 
 //updateField();
@@ -618,7 +618,7 @@ document.onkeydown = function (event) {//controls
             {
                 fullDrop();// up arrow for hard drop
                 drop.play(); // Boop Sound
-                counter = 955; // If hard drop us pressed, force counter to be above interval
+                counter = 925; // If hard drop us pressed, force counter to be above interval
                 break;
             }case 69:
             {      //'E' key, Clockwise
@@ -637,5 +637,4 @@ document.onkeydown = function (event) {//controls
                 break;
         }
     }
-}
-;
+};
