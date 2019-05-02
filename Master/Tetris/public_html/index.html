@@ -29,9 +29,35 @@ and open the template in the editor.
             }
             #next{
                 position: relative;
-                width: 200px;
+                width: 260px;
                 height: 705px;
                 border:solid .2em white;
+            }
+            #image{
+                position:absolute;
+                width:675px;
+                height:600px;
+                top:115px;
+                left:765px;
+            }
+            #pause{
+                position: absolute;
+                top:600px;
+                right:1067px;
+                background-color: #4CAF50;
+                border: none;
+                color: white;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+            }
+            #pause:hover{
+                background-color: white;
+                color: #4CAF50;
             }
         </style>
         <meta charset="UTF-8">
@@ -43,8 +69,9 @@ and open the template in the editor.
         </audio>
         <button id="pause" onclick="paused()">Pause</button>
         <canvas id="score" width="200" height="500"></canvas>
-        <canvas id="tetris" width="240" height="400"></canvas>
-        <canvas id="next" width="200" height="500"></canvas>
+        <canvas id="tetris" width="240" height="480"></canvas>
+        <canvas id="next" width="240" height="500"></canvas>
+        <canvas id="image" width="650" height="600"></canvas>
         <script src="game.js"></script>
         
     </body>
