@@ -75,6 +75,10 @@ function writeNext(){
 
 function paused(){
     pause=!pause;
+    if(!playGame){
+        window.location.reload();
+    }
+    
 }
 
 //Starting with the T block but will add more later
@@ -582,8 +586,17 @@ function gameOver(matrix){
                 playGame=false;
             }
         }
-        if(playGame==false){
-               location.reload();
+        if(playGame===false){
+               
+               var c = document.getElementById("image");
+               var ctx = c.getContext("2d");
+               var img=new Image();
+               img.src="gameover.png";
+               ctx.drawImage(img,10,10);
+               document.getElementById("pause").childNodes[0].nodeValue=
+   "restart?";
+               pause();
+               
         }
 }
 
