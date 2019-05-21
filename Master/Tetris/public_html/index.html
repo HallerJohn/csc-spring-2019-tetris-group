@@ -9,41 +9,45 @@ and open the template in the editor.
         <title>Tetris</title>
         <style>
             body{
-                background: #2d2d39;
-                text-align: center;
+                background-image: url("freetetris.jpg");
+                background-repeat: no-repeat;
+                
+                z-index: 0;
             }
             #tetris{
-                border:solid .2em white;
+               position:absolute;
                 height: 90vh;
+                right:566px;
+                border: solid .2em white;
             }
             #score{
-                position: relative;
+                position: absolute;
                 width: 200px;
                 height: 400px;
-                top: 0px;
-                bottom: 0px;
-                left: 0px;
-                right: 0;
+                left:469px;
+                top:313px;
                 border:solid .2em white;
-                z-index: -1;
+                z-index: 0;
             }
             #next{
-                position: relative;
+                position: absolute;
                 width: 260px;
                 height: 705px;
                 border:solid .2em white;
+                right:300px;
             }
             #image{
                 position:absolute;
-                width:675px;
-                height:600px;
-                top:115px;
-                left:765px;
+                width:669px;
+                height:597px;
+                top:119px;
+                right: 262px;
+                z-index: 1;
             }
             #pause{
                 position: absolute;
-                top:600px;
-                right:1067px;
+                bottom: 62px;
+                left:317px;
                 background-color: #4CAF50;
                 border: none;
                 color: white;
@@ -54,10 +58,18 @@ and open the template in the editor.
                 font-size: 16px;
                 margin: 4px 2px;
                 cursor: pointer;
+                height:50px;
+                width:150px;
             }
-            #pause:hover{
+            #pause:active{
                 background-color: white;
                 color: #4CAF50;
+            }
+            div#title{
+                position:absolute;
+                top:12px;
+                left:678px;     
+                z-index: 1;
             }
         </style>
         <meta charset="UTF-8">
@@ -67,11 +79,13 @@ and open the template in the editor.
         <audio loop controls autoplay id="bgm">
             <source src="music/Tetris.mp3" type="audio/mpeg">
         </audio>
-        <button id="pause" onclick="paused()">Pause</button>
+        
+        <button id="pause" onclick="paused()">->Pause<-</button>
         <canvas id="score" width="200" height="500"></canvas>
         <canvas id="tetris" width="240" height="480"></canvas>
         <canvas id="next" width="240" height="500"></canvas>
         <canvas id="image" width="650" height="600"></canvas>
+        <div id="title"><img id="myImg" src="title.png" alt="title" width="352" height="117"></div>
         <script src="game.js"></script>
         
     </body>
