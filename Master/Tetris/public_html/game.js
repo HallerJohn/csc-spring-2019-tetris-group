@@ -28,6 +28,7 @@ var pos;//used to determine the position of a I Block
 var score=0;//used to keep track of score, must be set to zero in new game but save high score later.
 var scoreTetris=0;//used to see if a tetris is scored in a row
 var pause=false;//used to determine if the game is paused
+var pausecounter=0;//true state
 
 // Counts Tetrominos Dropped (ctrl+shift+J to view terminal)
 // ***Minor Bug*** Does not count first block dropped for some reason
@@ -74,11 +75,45 @@ function writeNext(){
 }
 
 function paused(){
+    if(pausecounter===0){
+    var c = document.getElementById("image");
+               var ctx = c.getContext("2d");
+              
+ctx.font = "100px Arial";
+var gradient = ctx.createLinearGradient(0, 0, c.width, 0);
+gradient.addColorStop("0", "green");
+gradient.addColorStop("0.5", "blue");
+gradient.addColorStop("1.0", "red");
+
+ctx.fillStyle = gradient;
+ctx.fillText("Game Paused!",-5,300);
+               document.getElementById("pause").childNodes[0].nodeValue=
+   "Unpause!!";
+    }
+    if(pausecounter===1){
+        var c = document.getElementById("image");
+        var ctx = c.getContext("2d");    // gets reference to canvas context
+        ctx.beginPath();    // clear existing drawing paths
+        ctx.save();         // store the current transformation matrix
+
+  // Use the identity matrix while clearing the canvas
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.clearRect(0, 0, c.width, c.height);
+        ctx.restore();        // restore the transform
+        document.getElementById("pause").childNodes[0].nodeValue=
+   "->Pause<-";
+    }
+    if(pausecounter===0){
+        pausecounter=1;
+    }
+    else{
+        pausecounter=0;
+    }
     pause=!pause;
+    
     if(!playGame){
         window.location.reload();
     }
-    
 }
 
 //Starting with the T block but will add more later
