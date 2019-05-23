@@ -247,9 +247,9 @@ function collision(matrix, playerData) {//detects collision with walls/blocks
 function draw() {
     context.fillStyle = '#000';
     context.fillRect(0, 4, canvas.width, canvas.height);
+    writeField(context, ghost.field, ghost.position,1);//print ghost block
     writeField(context, matrix, {x: 0, y: 0});//print collision matrix to show blocks that hit bottom
     writeField(context, playerData.field, playerData.position);//print current block being controlled
-    writeField(context, ghost.field, ghost.position,1);//print ghost block
 }
 
 //These are use to control the drop speed
