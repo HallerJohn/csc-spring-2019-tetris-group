@@ -43,7 +43,10 @@ document.onkeydown = function (event) {//controls
         }
     }
     switch (event.keyCode){
-            case 80:{ // 'P' key, Pause
+        case 80 :{ // 'P' key, Pause
+            paused();
+            break;
+        }case 27 :{ // 'P' key, Pause
                 paused();
                 break;
         }
