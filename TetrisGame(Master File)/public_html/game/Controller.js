@@ -24,7 +24,7 @@ document.onkeydown = function (event) {//controls
                 move('y', 1);
                 counter = 0; // If block is lowered, reset interval
                 break;
-            }case 32:
+            }case 38:
             {
                 event.preventDefault();
                 fullDrop();// up arrow for hard drop
