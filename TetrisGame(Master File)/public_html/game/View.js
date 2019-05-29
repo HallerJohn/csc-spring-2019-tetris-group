@@ -97,8 +97,8 @@ function lineF(){
     lineContext.fillStyle = '#000';
     lineContext.fillRect(0, 0, lineCanvas.width, lineCanvas.height);
     lineContext.fillStyle = "White";
-    lineContext.font = "600 50px sans-serif";
-    lineContext.fillText("LINE - "+line, 5, 100, lineCanvas.width);
+    lineContext.font = "600 70px sans-serif";
+    lineContext.fillText("LINE - "+line, 5, 90, lineCanvas.width);
 }
 
 function drawlevel(){
@@ -116,27 +116,50 @@ function drawstats(){
     statContext.fillRect(0, 0, statCanvas.width, statCanvas.height);
     statContext.fillStyle = "White";
     statContext.font = "600 20px sans-serif";
-    statContext.fillText("STATISTICS ", 100, 17, statCanvas.width);
+    statContext.fillText("STATISTICS ", 100, 22, statCanvas.width);
     statContext.fillStyle = "White";
     statContext.font = "600 15px sans-serif";
-    statContext.fillText("T-BLOCK:      "+tCount, 30, 35, statCanvas.width);
+    statContext.fillText("T-BLOCK:      "+tCount, 30, 39, statCanvas.width);
     statContext.fillStyle = "White";
     statContext.font = "600 15px sans-serif";
-    statContext.fillText("J-BLOCK:      "+jCount, 30, 52, statCanvas.width);
+    statContext.fillText("J-BLOCK:      "+jCount, 30, 56, statCanvas.width);
     statContext.fillStyle = "White";
     statContext.font = "600 15px sans-serif";
-    statContext.fillText("Z-BLOCK:      "+zCount, 30, 69, statCanvas.width);
+    statContext.fillText("Z-BLOCK:      "+zCount, 30, 73, statCanvas.width);
     statContext.fillStyle = "White";
     statContext.font = "600 15px sans-serif";
-    statContext.fillText("O-BLOCK:      "+oCount, 30, 86, statCanvas.width);
+    statContext.fillText("O-BLOCK:      "+oCount, 30, 90, statCanvas.width);
     statContext.fillStyle = "White";
     statContext.font = "600 15px sans-serif";
-    statContext.fillText("S-BLOCK:      "+sCount, 30, 103, statCanvas.width);
+    statContext.fillText("S-BLOCK:      "+sCount, 30, 107, statCanvas.width);
     statContext.fillStyle = "White";
     statContext.font = "600 15px sans-serif";
-    statContext.fillText("L-BLOCK:      "+lCount, 30, 120, statCanvas.width);
+    statContext.fillText("L-BLOCK:      "+lCount, 30, 124, statCanvas.width);
     statContext.fillStyle = "White";
     statContext.font = "600 15px sans-serif";
-    statContext.fillText("I-BLOCK:      "+iCount, 30, 137, statCanvas.width);
+    statContext.fillText("I-BLOCK:      "+iCount, 30, 141, statCanvas.width);
 }
 
+function pausetext(pausecounter){
+    if(pausecounter===0){
+    endContext.font = "100px impact";
+    endContext.fillStyle = "White";
+    endContext.fillText("  GAME",15,200);
+    endContext.fillText("PAUSED",15,300);
+    document.getElementById("pause").childNodes[0].nodeValue=
+            "Unpause!!";}
+    else{
+        document.getElementById("pause").childNodes[0].nodeValue=
+   "->Pause<-";
+    }
+}
+
+function gameover(){
+    
+    endContext.font = "100px impact";
+    endContext.fillStyle = "Lightblue";
+    endContext.fillText("GAME", 15, 200);
+    endContext.fillText("OVER", 110, 300);
+    document.getElementById("pause").childNodes[0].nodeValue=
+   "restart?";
+}
