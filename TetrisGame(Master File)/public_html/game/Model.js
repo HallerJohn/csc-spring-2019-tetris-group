@@ -16,6 +16,8 @@ var levelCanvas = document.getElementById('levelC');
 var levelContext = levelCanvas.getContext('2d');
 var statCanvas = document.getElementById('statC');
 var statContext = statCanvas.getContext('2d');
+var endCanvas = document.getElementById('end');
+var endContext = endCanvas.getContext('2d');
 
 context.scale(20, 20);
 nextContext.scale(20,20);
@@ -92,32 +94,19 @@ var next = {
 
 function paused(){
     if(pausecounter===0){
-    var c = document.getElementById("image");
-               var ctx = c.getContext("2d");
-              
-ctx.font = "100px Arial";
-var gradient = ctx.createLinearGradient(0, 0, c.width, 0);
-gradient.addColorStop("0", "green");
-gradient.addColorStop("0.5", "blue");
-gradient.addColorStop("1.0", "red");
-
-ctx.fillStyle = gradient;
-ctx.fillText("Game Paused!",-5,300);
-               document.getElementById("pause").childNodes[0].nodeValue=
-   "Unpause!!";
+        pausetext(pausecounter);
     }
     if(pausecounter===1){
-        var c = document.getElementById("image");
-        var ctx = c.getContext("2d");    // gets reference to canvas context
-        ctx.beginPath();    // clear existing drawing paths
-        ctx.save();         // store the current transformation matrix
+
+        endContext.beginPath();    // clear existing drawing paths
+        endContext.save();         // store the current transformation matrix
 
   // Use the identity matrix while clearing the canvas
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
-        ctx.clearRect(0, 0, c.width, c.height);
-        ctx.restore();        // restore the transform
-        document.getElementById("pause").childNodes[0].nodeValue=
-   "->Pause<-";
+        endContext.setTransform(1, 0, 0, 1, 0, 0);
+        endContext.clearRect(0, 0, endCanvas.width, endCanvas.height);
+        endContext.restore();        // restore the transform
+        
+        pausetext(pausecounter);
     }
     if(pausecounter===0){
         pausecounter=1;
@@ -566,15 +555,8 @@ function gameOver(matrix){
             }
         }
         if(playGame===false){
-               
-               var c = document.getElementById("image");
-               var ctx = c.getContext("2d");
-               var img=new Image();
-               img.src="gameover.png";
-               ctx.drawImage(img,10,10);
-               document.getElementById("pause").childNodes[0].nodeValue=
-   "restart?";
-               pause();
+            gameover();
+            pause();
                
         }
 }
