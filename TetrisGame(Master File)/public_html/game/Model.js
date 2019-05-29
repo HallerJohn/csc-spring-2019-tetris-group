@@ -565,7 +565,7 @@ function increaseSpeed() {
     //Increase fps after every 10 Lines Cleared
     if (line !== 0){ 
         if((line % 10 === 0)) {
-            fps+= 1.5;
+            fps+= 1.25;
             interval = 1000 / fps;
             level++;
         }
