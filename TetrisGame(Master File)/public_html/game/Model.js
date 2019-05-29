@@ -562,13 +562,13 @@ function gameOver(matrix){
 }
 
 function increaseSpeed() {
-    //Increase fps after reaching a certain score
-    if((score / 500) > threshold)
-    {
-        threshold = score / 1000;
-        fps+= 0.25;
-        interval = 1000 / fps;
-        level++;
+    //Increase fps after every 10 Lines Cleared
+    if (line !== 0){ 
+        if((line % 10 === 0)) {
+            fps+= 1.5;
+            interval = 1000 / fps;
+            level++;
+        }
     }
 }
 
