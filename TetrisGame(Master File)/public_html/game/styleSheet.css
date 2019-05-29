@@ -11,6 +11,7 @@ and open the template in the editor.
    position:absolute;
     height: 90vh;
     left:625px;
+    z-index: 0;
 }
 #next{
     position: absolute;
@@ -22,24 +23,34 @@ and open the template in the editor.
 
 #pause{
     position: absolute;
-    bottom: 62px;
-    left:117px;
-    background-color: #4CAF50;
+    top: 120px;
+    left: 241px;
+    background-image: url("../pics/linesBoarder.jpg");
     border: none;
     color: white;
     padding: 15px 32px;
     text-align: center;
+    font-weight: bold;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 30px;
+    font-family: sans-serif;
     margin: 4px 2px;
     cursor: pointer;
-    height:50px;
-    width:150px;
+    height:78px;
+    width:305px;
 }
 #pause:active{
     background-color: white;
-    color: #4CAF50;
+    color: lightblue;
+}
+#end{
+    position:absolute;
+    width:669px;
+    height:597px;
+    top:119px;
+    right: 280px;
+    z-index: 3;
 }
 #ssBackground{ 
   /* Full height */
