@@ -24,12 +24,19 @@ document.onkeydown = function (event) {//controls
                 move('y', 1);
                 counter = 0; // If block is lowered, reset interval
                 break;
-            }case 32:
+            }case 38:
             {
                 event.preventDefault();
                 fullDrop();// up arrow for hard drop
                 drop.play(); // Boop Sound
-                counter = 925; // If hard drop us pressed, force counter to be above interval
+                counter = 975; // If hard drop is pressed, force counter to be slightly below interval
+                break;
+            }case 32:
+            {
+                event.preventDefault();
+                fullDrop();// space bar for kinda hard drop
+                drop.play(); // Boop Sound
+                counter = 0; // If kinda hard drop is pressed, force counter to be 0 to allow movement
                 break;
             }case 69:
             {      //'E' key, Clockwise
