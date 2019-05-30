@@ -45,6 +45,8 @@ var threshold = 0;//Used to increase speed every 500 points
 
 // Counts Tetrominos Dropped (ctrl+shift+J to view terminal)
 // ***Minor Bug*** Does not count first block dropped for some reason
+var type=new Array;
+var index;
 var tCount=0;
 var iCount=0;
 var oCount=0;
@@ -72,6 +74,22 @@ function dropField(){
     fieldAry[2]=fieldAry[3];
     fieldAry[3]=chooseField();
     checkBlockData();
+    type[0]=type[1];
+    type[1]=type[2];
+    type[2]=type[3];
+    type[3]=index;
+    checkType();
+}
+function checkType(){
+    switch(type[0]){
+        case 't':tCount++;break;
+        case 'o':oCount++;break;
+        case 'j':jCount++;break;
+        case 'l':lCount++;break;
+        case 'i':iCount++;break;
+        case 's':sCount++;break;
+        case 'z':zCount++;break;
+    }
 }
 
 function checkBlockData(){
@@ -87,9 +105,11 @@ function checkBlockData(){
 function initField(){
     for(let i=0;i<4;i++){
         fieldAry[i]=chooseField();
+        type[i]=index;
     }
     if(fieldAry[0].length===4)txf=1;
     else if(fieldAry[0].length===3)txf=0;
+    checkType();
 }
 
 var next = {
@@ -134,16 +154,18 @@ function chooseField() {
     
     switch (block) {
         case 0: //T-block
-            tCount++;
+            index='t';
+            //tCount++;
             field = [
+                [0, 0, 0],
                 [1, 1, 1],
-                [0, 1, 0],
-                [0, 0, 0]
+                [0, 1, 0]
             ];
             //txf = 0; this is initialiced in the dropfield function
             break;
         case 1: //O-block
-            oCount++;
+            index='o';
+            //oCount++;
             field = [
                 [0, 2, 2],
                 [0, 2, 2],
@@ -152,7 +174,8 @@ function chooseField() {
             //txf=0;
             break;
         case 2: //s-block
-            sCount++;
+            index='s';
+            //sCount++;
             field = [
                 [0, 3, 3],
                 [3, 3, 0],
@@ -161,7 +184,8 @@ function chooseField() {
             //txf=0;
             break;
         case 3: //z-block
-            zCount++;
+            index='z';
+            //zCount++;
             field = [
                 [4, 4, 0],
                 [0, 4, 4],
@@ -170,25 +194,28 @@ function chooseField() {
             //txf=0;
             break;
         case 4: //J-block
-            jCount++;
+            index='j';
+            //jCount++;
             field = [
-                [0, 0, 5],
-                [0, 0, 5],
-                [0, 5, 5]
+                [0, 5, 0],
+                [0, 5, 0],
+                [5, 5, 0]
             ];
             //txf=0;
             break;
         case 5: //L-block
-            lCount++;
+            index='l';
+            //lCount++;
             field = [
-                [6, 0, 0],
-                [6, 0, 0],
-                [6, 6, 0]
+                [0, 6, 0],
+                [0, 6, 0],
+                [0, 6, 6]
             ];
             //txf=0;
             break;
         case 6: //I-block
-            iCount++;
+            index='i';
+            //iCount++;
             field = [
                 [7, 7, 7, 7],
                 [0, 0, 0, 0],
