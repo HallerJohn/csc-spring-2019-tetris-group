@@ -78,17 +78,17 @@ function dropField(){
     type[1]=type[2];
     type[2]=type[3];
     type[3]=index;
-    checkType();
+    checkType(1);
 }
-function checkType(){
+function checkType(add){
     switch(type[0]){
-        case 't':tCount++;break;
-        case 'o':oCount++;break;
-        case 'j':jCount++;break;
-        case 'l':lCount++;break;
-        case 'i':iCount++;break;
-        case 's':sCount++;break;
-        case 'z':zCount++;break;
+        case 't':tCount+=add;break;
+        case 'o':oCount+=add;break;
+        case 'j':jCount+=add;break;
+        case 'l':lCount+=add;break;
+        case 'i':iCount+=add;break;
+        case 's':sCount+=add;break;
+        case 'z':zCount+=add;break;
     }
 }
 
@@ -109,7 +109,7 @@ function initField(){
     }
     if(fieldAry[0].length===4)txf=1;
     else if(fieldAry[0].length===3)txf=0;
-    checkType();
+    checkType(1);
 }
 
 var next = {
@@ -516,12 +516,19 @@ function swapHold(){
     if(!playerData.swapCount){
         if(!playerData.hold){
             playerData.hold = playerData.field;
+            type[5]=type[0];
+            checkType(-1);
             dropField();
             playerData.field=fieldAry[0];
         } else {
             var temp = playerData.field;
+            var temp2=type[5];
             playerData.field = playerData.hold;
             playerData.hold = temp;
+            checkType(-1);
+            type[5]=type[0];
+            type[0]=temp2;
+            checkType(1);
         }
         playerData.swapCount = true;
         checkBlockData();
