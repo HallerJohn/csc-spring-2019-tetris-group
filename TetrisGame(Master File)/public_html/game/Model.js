@@ -275,7 +275,9 @@ var matrix = createMatrix(12, 24);//create the collision matrix
 var playerData = {//data for the block the player is controlling and that field
     position: {x: 5, y: 4},
     field: fieldAry[0],
-    square: false
+    square: false,
+    hold: null,
+    swapCount: false
 };
 
 var ghost = {//ghost block
@@ -312,6 +314,7 @@ function reset(matrix) {//resets player position after a block is placed
     playerData.position.x = 5;
     dropField();
     playerData.field=fieldAry[0];
+    playerData.swapCount = false;
     //    playerData.field = chooseField(); // choose new block with reset location
 }
 
@@ -501,6 +504,23 @@ function rotate(dir) {
                     playerData.position.x++;//if collision on the left
             }*/
         }
+    }
+}
+
+function swapHold(){
+    if(!playerData.swapCount){
+        if(!playerData.hold){
+            playerData.hold = playerData.field;
+            dropField();
+            playerData.field=fieldAry[0];
+            playerData.swapCount = true;
+        } else {
+            var temp = playerData.field;
+            playerData.field = playerData.hold;
+            playerData.hold = temp;
+            playerData.swapCount = true;
+        }
+        
     }
 }
 

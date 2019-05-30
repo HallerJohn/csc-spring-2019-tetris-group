@@ -24,7 +24,7 @@ document.onkeydown = function (event) {//controls
                 move('y', 1);
                 counter = 0; // If block is lowered, reset interval
                 break;
-            }case 38:
+            }case 32:
             {
                 event.preventDefault();
                 fullDrop();// up arrow for hard drop
@@ -38,6 +38,11 @@ document.onkeydown = function (event) {//controls
             }case 81:
             {      //'Q' key, Counter-Clockwise
                 Arotate(-1);
+                break;
+            }case 83:
+            {      //'s' key, hold block
+                console.log("pressed s key");
+                swapHold();
                 break;
             }
         }
