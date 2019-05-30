@@ -71,12 +71,16 @@ function dropField(){
     fieldAry[1]=fieldAry[2];
     fieldAry[2]=fieldAry[3];
     fieldAry[3]=chooseField();
-    if(fieldAry[0].length===4)txf=1;
-    else if(fieldAry[0].length===3)txf=0;
-    console.log('The block data =');
-    console.log(fieldAry[0][0][1]);
-    if(fieldAry[0][0][1]===2){
+    checkBlockData();
+}
+
+function checkBlockData(){
+    if(playerData.field.length===4)txf=1;
+    else if(playerData.field.length===3)txf=0;
+    if(playerData.field[0][1]===2){
         playerData.square = true;
+    } else {
+        playerData.square = false;
     }
 }
 
@@ -121,9 +125,6 @@ function paused(){
     }
 }
 
-//Starting with the T block but will add more later
-//creates a rondom block now but we should rename field to block or part or object
-//var field = chooseField();
 
 //chooses a random block to create
 function chooseField() {
@@ -199,15 +200,6 @@ function chooseField() {
             break;
     }
     
-//    console.log("--------------");
-//    console.log("T-Blocks:%d\n",tCount);
-//    console.log("I-Blocks:%d\n",iCount);
-//    console.log("O-Blocks:%d\n",oCount);
-//    console.log("L-Blocks:%d\n",lCount);
-//    console.log("J-Blocks:%d\n",jCount);
-//    console.log("S-Blocks:%d\n",sCount);
-//    console.log("Z-Blocks:%d\n",zCount);
-//    console.log("--------------");
     return field;
 }
 
@@ -250,7 +242,6 @@ function collision(matrix, playerData) {//detects collision with walls/blocks
 }
 
 function updateField() {
-        //requestAnimationFrame(updateField);
         now = Date.now(); // Now becomes current time
         delta = now - then; // Get your delta between now and last update
         then = now; // change last update to now
@@ -307,14 +298,13 @@ function move(axis, dir) {//switched back to this move function since the collis
 
 function reset(matrix) {//resets player position after a block is placed
     drop.play();   
-    playerData.square=false;//reset square detector
-    
     playerData.position.y = 4;
     alterposition();
     playerData.position.x = 5;
     dropField();
     playerData.field=fieldAry[0];
     playerData.swapCount = false;
+    checkBlockData();
     //    playerData.field = chooseField(); // choose new block with reset location
 }
 
@@ -435,13 +425,7 @@ function rotate(dir) {
                             break;
                 }
             }
-            //this create trouble with the arotate function
-            /*if (collision(matrix, playerData)) {//if there is a collision after rotating
-                if (playerData.position.x > 0)
-                    playerData.position.x--;//if collision on the right
-                else
-                    playerData.position.x++;//if collision on the left
-            }*/
+            
         } else if (dir === -1)  //Counter-Clockwise
         {
             if(txf===0){//rotate couonterclockwise if 3x3
@@ -496,13 +480,7 @@ function rotate(dir) {
                 }
             }         
 
-            //this create trouble with the arotate function
-            /*if (collision(matrix, playerData)) {//if there is a collision after rotating
-                if (playerData.position.x > 0)
-                    playerData.position.x--;//if collision on the right
-                else
-                    playerData.position.x++;//if collision on the left
-            }*/
+            
         }
     }
 }
@@ -513,13 +491,13 @@ function swapHold(){
             playerData.hold = playerData.field;
             dropField();
             playerData.field=fieldAry[0];
-            playerData.swapCount = true;
         } else {
             var temp = playerData.field;
             playerData.field = playerData.hold;
             playerData.hold = temp;
-            playerData.swapCount = true;
         }
+        playerData.swapCount = true;
+        checkBlockData();
         
     }
 }
