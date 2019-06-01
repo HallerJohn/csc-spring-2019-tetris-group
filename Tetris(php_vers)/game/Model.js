@@ -310,7 +310,7 @@ var ghost = {//ghost block
 };
 
 function move(axis, dir) {//switched back to this move function since the collision matrix already detects sides
-    
+    if(alive){
         if (axis === 'x') {
             playerData.position.x += dir;
             ghostMove();//update ghost position
@@ -327,18 +327,23 @@ function move(axis, dir) {//switched back to this move function since the collis
                 reset(matrix);//reset player to the top
             }
         }
+    }
 }
 
 function reset(matrix) {//resets player position after a block is placed
     drop.play();   
-    playerData.position.y = 4;
-    alterposition();
-    playerData.position.x = 5;
+    resetPos();
     dropField();
     playerData.field=fieldAry[0];
     playerData.swapCount = false;
     checkBlockData();
     //    playerData.field = chooseField(); // choose new block with reset location
+}
+
+function resetPos(){
+    playerData.position.y = 4;
+    alterposition();
+    playerData.position.x = 5;
 }
 
 function alterposition(){// rise the position of new block higher as the rest block approaching to the top border
@@ -354,11 +359,13 @@ function alterposition(){// rise the position of new block higher as the rest bl
 }
 
 function fullDrop() {
+    if(alive){
         while (!collision(matrix, playerData)) {
              playerData.position.y++;
         }
         playerData.position.y--;
         lineDel(matrix);//check if line needs to be deleted
+    }
 }
 
 function ghostMove(){
@@ -520,6 +527,7 @@ function rotate(dir) {
 
 function swapHold(){
     if(!playerData.swapCount){
+        resetPos();
         if(!playerData.hold){
             playerData.hold = playerData.field;
             type[5]=type[0];
@@ -588,17 +596,18 @@ function lineDel(matrix) {
 
 function gameOver(matrix){
     for (var j = 11; j>=0; j--) {
-            if(matrix[3][j]!==0){
-                playGame=false;
-            }
+        if(matrix[3][j]!==0){
+            playGame=false;
         }
-        if(playGame===false){
-            gameover();
-            alive = false;
-            sendCookies();
-            pause();
-               
-        }
+    }
+    if(playGame===false){
+        gameover();
+        alive = false;
+        console.log("SENDING COOKIES");
+        sendCookies();
+        pause();
+
+    }
 }
 
 function increaseSpeed() {
