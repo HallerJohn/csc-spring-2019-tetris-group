@@ -28,14 +28,14 @@ document.onkeydown = function (event) {//controls
             {
                 event.preventDefault();
                 fullDrop();// up arrow for hard drop
-                drop.play(); // Boop Sound
+                playDrop(); // Boop Sound
                 counter = 975; // If hard drop is pressed, force counter to be slightly below interval
                 break;
             }case 32:
             {
                 event.preventDefault();
                 fullDrop();// space bar for kinda hard drop
-                drop.play(); // Boop Sound
+                playDrop(); // Boop Sound
                 counter = 0; // If kinda hard drop is pressed, force counter to be 0 to allow movement
                 break;
             }case 69:

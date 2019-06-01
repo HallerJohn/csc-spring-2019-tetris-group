@@ -27,8 +27,11 @@ audio.volume=0.5;
 audio.playbackRate=1.0; // Able to increase speed of song over time
 
 var drop=new Audio(); // Boop Sound for Hard Drop
-drop.src = "music/TetrisDrop.mp3";
+drop.src = "../music/TetrisDrop.mp3";
 drop.volume=1;
+function playDrop(){
+    drop.play;
+}
 
 var playGame=true;
 var txf;//used to distinguish from a 3x3 and 4x4
@@ -45,6 +48,7 @@ var threshold = 0;//Used to increase speed every 500 points
 
 // Counts Tetrominos Dropped (ctrl+shift+J to view terminal)
 // ***Minor Bug*** Does not count first block dropped for some reason
+var alive = true;
 var type=new Array;
 var index;
 var tCount=0;
@@ -269,6 +273,7 @@ function collision(matrix, playerData) {//detects collision with walls/blocks
 }
 
 function updateField() {
+    if(alive){
         now = Date.now(); // Now becomes current time
         delta = now - then; // Get your delta between now and last update
         then = now; // change last update to now
@@ -286,6 +291,7 @@ function updateField() {
         lineF();
         drawlevel();
         drawstats();
+    }
 }
 
 var matrix = createMatrix(12, 24);//create the collision matrix
@@ -574,7 +580,6 @@ function lineDel(matrix) {
         }
         else{
             score+=(100*scoreMultiplier);
-            sendCookies();
             scoreTetris=0;
         }
     }
@@ -589,8 +594,9 @@ function gameOver(matrix){
         }
         if(playGame===false){
             gameover();
-            pause();
+            alive = false;
             sendCookies();
+            pause();
                
         }
 }
@@ -609,7 +615,10 @@ function increaseSpeed() {
 function sendCookies(){
     document.cookie = "score="+score+"; path=/";
     console.log(document.cookie);
-    var a = $.get('../server/send_cookie.php');
+    var cook = document.cookie;
+    $.get("../server/send_cookie.php", function(cook){
+        
+    });
 }
 
 function game(){
