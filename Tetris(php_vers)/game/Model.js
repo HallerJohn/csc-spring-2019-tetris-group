@@ -625,11 +625,7 @@ function sendCookies(){
     document.cookie = "score="+score+"; path=/";
     console.log(document.cookie);
     var cook = document.cookie;
-    execPHP("../server/send_cookie.php");
-}
-
-function execPHP($file){
-    $.get($file,function(){
+    $.get("../server/send_cookie.php",function(){
         
     });
 }

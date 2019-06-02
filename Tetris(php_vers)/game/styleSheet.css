@@ -197,7 +197,10 @@ button{
   height: 76%; 
   width: 26%;
   position: absolute;
-  background-color: blue;
+  color: green;
+  font-size: 40px;
+  text-align: left;
+  background-color: white;
   background-size: cover;
   z-index: 3;
   top: 19.7%;
@@ -323,9 +326,4 @@ button{
   background-size: cover;
   top: 27.5%;
   left: 19.1%;
-}
-#wrapper{
-    width: 900px;
-    margin-left: auto;
-    margin-right: auto;
 }
