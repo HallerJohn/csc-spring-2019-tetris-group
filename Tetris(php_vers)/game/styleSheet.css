@@ -12,7 +12,7 @@ and open the template in the editor.
    position:absolute;
     height: 90vh;
     left:39.43%;
-    z-index: 0;
+    z-index: 5;
 }
 #next{
     position: absolute;
@@ -20,6 +20,7 @@ and open the template in the editor.
     height: 46%;
     top: 29%;
     right:14.5%;
+    z-index: 5;
 }
 
 #pause{
@@ -40,6 +41,7 @@ and open the template in the editor.
     cursor: pointer;
     height:78px;
     width:305px;
+    z-index: 6;
 }
 #pause:active{
     background-color: white;
@@ -51,7 +53,7 @@ and open the template in the editor.
     height:597px;
     top:119px;
     right: 280px;
-    z-index: 3;
+    z-index: 5;
 }
 #ssBackground{ 
   /* Full height */
@@ -97,13 +99,14 @@ button{
   width: 100%;
   background-size: cover;
   position: absolute;
-  index-z: 1;
+  z-index: -1;
 }
 .options.center {
   display: block;
   margin-left: auto;
   margin-right: auto;
   width: 50%;
+  z-index: -1;
 }
 
 #start{ 
@@ -112,7 +115,7 @@ button{
   width: 12%;
   position: absolute;
   background-size: cover;
-  index-z: 2;
+  z-index: 2;
   top: 18%;
   left: 27%;
 }
@@ -128,7 +131,7 @@ button{
   width: 12%;
   position: absolute;
   background-size: cover;
-  index-z: 2;
+  z-index: 2;
   top: 5%;
   left: 42%;
 }
@@ -144,7 +147,7 @@ button{
   width: 12%;
   position: absolute;
   background-size: cover;
-  index-z: 2;
+  z-index: 2;
   top: 30%;
   left: 48%;
   cursor: pointer;
@@ -160,7 +163,7 @@ button{
   width: 20%;
   position: absolute;
   background-size: cover;
-  index-z: 2;
+  z-index: 2;
   top: 50%;
   left: 20%;
 }
@@ -170,7 +173,7 @@ button{
   width: 20%;
   position: absolute;
   background-size: cover;
-  index-z: 2;
+  z-index:1;
   top: 50%;
   left: 45%;
 }
@@ -179,7 +182,7 @@ button{
   width: 30%;
   position: absolute;
   background-size: cover;
-  index-z: 2;
+  z-index: 2;
   left: 30%;
 }
 #lbDB{
@@ -187,7 +190,7 @@ button{
   width: 30%;
   position: absolute;
   background-size: cover;
-  index-z: 2;
+  z-index: 2;
   left: 30%;
 }
 #highScoreC{
@@ -196,7 +199,7 @@ button{
   position: absolute;
   background-color: blue;
   background-size: cover;
-  index-z: 3;
+  z-index: 3;
   top: 19.7%;
   left: 32.2%;
 }
@@ -204,9 +207,12 @@ button{
   height: 76%; 
   width: 26%;
   position: absolute;
-  background-color: blue;
+  color: green;
+  font-size: 40px;
+  text-align: left;
+  background-color: white;
   background-size: cover;
-  index-z: 3;
+  z-index: 3;
   top: 19.7%;
   left: 32.2%;
 }
@@ -215,7 +221,7 @@ button{
   width: 26.5%;
   position: absolute;
   background-size: cover;
-  index-z: 1;
+  z-index: 5;
   top: 16.4%;
   left: 37.5%;
 }
