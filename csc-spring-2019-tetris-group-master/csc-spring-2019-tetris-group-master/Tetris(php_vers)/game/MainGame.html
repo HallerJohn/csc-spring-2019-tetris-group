@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Tetris</title>
+        <style>
+
+        </style>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="styleSheet.css">
+    </head>
+    <body>
+        <img class="options" src="../pics/tetrisBackGround.jpg" alt="Main Menu Background">
+        <img id="tetrisC" src="../pics/tetriscanvas.jpg" alt="Tetris Canvas">
+        <img id="linesB" src="../pics/linesBoarder.jpg" alt="Line Boarder">
+        <canvas id="linesBC" ></canvas>
+        <img id="scoreB" src="../pics/linesBoarder.jpg" alt="Score Boarder">
+        <canvas id="score" ></canvas>
+        <img id="nextB" src="../pics/nextBlockBoarder.jpg" alt="Next Block Boarder">
+        <img id="levelB" src="../pics/linesBoarder.jpg" alt="Level Boarder">
+        <canvas id="levelC" ></canvas>
+        <img id="stat" src="../pics/nextBlockBoarder.jpg" alt="Statistics Boarder">
+        <canvas id="statC" ></canvas>
+        
+        <canvas id="holdBC" ></canvas>
+        <img id="holdingB" src="../pics/linesBoarder.jpg" alt="Score Boarder">
+        <canvas id="holding" ></canvas>
+        
+        <audio loop controls autoplay id="bgm">
+            <source src="../music/Tetris.mp3" type="audio/mpeg">
+        </audio>
+        
+        <button id="pause" onclick="paused()">->Pause<-</button>
+        <canvas id="tetris" width="238" height="480"></canvas>
+        <canvas id="next" width="200" height="440"></canvas>
+        <canvas id="end" width="650" height="600"></canvas>
+        <img id="topB" src="../pics/topboarder.jpg" alt="Tetris Canvas Top Boarder">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script type="text/javascript" src="Model.js"></script>
+        <script type="text/javascript" src="View.js"></script>
+        <script type="text/javascript" src="Controller.js"></script>
+        
+    </body>
+</html>
