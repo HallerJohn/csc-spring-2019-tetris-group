@@ -366,6 +366,10 @@ input[type=text] {
   background-color: #3CBC8D;
   color: white;
 }
+#password {
+  background-color: #3CBC8D;
+  color: white;
+}
 body {
   color: white;
 }

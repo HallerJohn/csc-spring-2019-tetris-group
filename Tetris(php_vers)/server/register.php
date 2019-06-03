@@ -72,8 +72,10 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         <link rel="stylesheet" href="styleSheet.css">
     </head>
     <body>
-        <div class="board">
-            <img class="options" src="../pics/tetrisBackGround.jpg" alt="Main Menu Background">
+        <div class="board" style="background-image: url('../pics/tetrisBackGround.jpg');
+             text-align: center;
+             height: 100%">
+            
             <form action="register.php" method="post">
                 <p>Username: <input type="text" name="username" size="15" maxlength="20" value="<?php if (isset($_POST['username'])) echo $_POST['username']; ?>" /></p>
                 <p>Email Address: <input type="text" name="email" size="20" maxlength="60" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>"  /> </p>

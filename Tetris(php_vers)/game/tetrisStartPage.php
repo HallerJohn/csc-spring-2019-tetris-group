@@ -35,9 +35,9 @@ $page_title = 'Login';
             <img id="ssBackground" src="../pics/nintendoStartScreen.jpg" alt="Start Screen">
             <form method="post" action="tetrisStartPage.php">
                 Email:<br>
-                <input type="text" name ="email" value="email"><br>
+                <input type="text" name ="email" ><br>
                 Password:<br>
-                <input type="text" name="password" value="password"><br><br>
+                <input type="password" name="password" id='password'><br><br>
                 <input type="submit" value="Login">
             </form>
             <a href="../server/register.php">
