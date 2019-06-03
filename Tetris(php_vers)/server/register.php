@@ -1,6 +1,7 @@
 <?php
 if($_SERVER['REQUEST_METHOD']=='POST'){
     require ('dbConnect.php');
+    include ('functions.php');
     $errors = array();
     
     
@@ -43,6 +44,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         $query = "INSERT INTO tetris_entity_accounts (email, username, password, registration_date) VALUES ('$email', '$username', '$password', NOW())";
         if ($conn->query($query) === TRUE){
             echo "You have succesfully registered";
+            redirect_user('../game/tetrisStartPage.php');
         } else {
             echo "error: ".$query . "<br>" . $conn->error;
         }
@@ -60,11 +62,28 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 }
 ?>
 
-<h1>Register</h1>
-<form action="register.php" method="post">
-	<p>Username: <input type="text" name="username" size="15" maxlength="20" value="<?php if (isset($_POST['username'])) echo $_POST['username']; ?>" /></p>
-	<p>Email Address: <input type="text" name="email" size="20" maxlength="60" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>"  /> </p>
-	<p>Password: <input type="password" name="pass1" size="10" maxlength="20" value="<?php if (isset($_POST['pass1'])) echo $_POST['pass1']; ?>"  /></p>
-	<p>Confirm Password: <input type="password" name="pass2" size="10" maxlength="20" value="<?php if (isset($_POST['pass2'])) echo $_POST['pass2']; ?>"  /></p>
-	<p><input type="submit" name="submit" value="Register" /></p>
-</form>
+
+
+<html>
+    <head>
+        <title>Register</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styleSheet.css">
+    </head>
+    <body>
+        <div class="board">
+            <img class="options" src="../pics/tetrisBackGround.jpg" alt="Main Menu Background">
+            <form action="register.php" method="post">
+                <p>Username: <input type="text" name="username" size="15" maxlength="20" value="<?php if (isset($_POST['username'])) echo $_POST['username']; ?>" /></p>
+                <p>Email Address: <input type="text" name="email" size="20" maxlength="60" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>"  /> </p>
+                <p>Password: <input type="password" name="pass1" size="10" maxlength="20" value="<?php if (isset($_POST['pass1'])) echo $_POST['pass1']; ?>"  /></p>
+                <p>Confirm Password: <input type="password" name="pass2" size="10" maxlength="20" value="<?php if (isset($_POST['pass2'])) echo $_POST['pass2']; ?>"  /></p>
+                <p><input type="submit" name="submit" value="Register" /></p>
+            </form>
+            <a href="../game/tetrisStartPage.php">
+                <img src='../pics/homeButton.jpg'>
+            </a>
+        </div>
+    </body>
+</html>

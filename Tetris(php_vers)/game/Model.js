@@ -18,12 +18,15 @@ var statCanvas = document.getElementById('statC');
 var statContext = statCanvas.getContext('2d');
 var endCanvas = document.getElementById('end');
 var endContext = endCanvas.getContext('2d');
+var holdCanvas = document.getElementById('holding');
+var holdContext = holdCanvas.getContext('2d');
 
 context.scale(20, 20);
 nextContext.scale(20,20);
+holdContext.scale(40,40);
 
 var audio=document.getElementById("bgm");
-audio.volume=0.5;
+audio.volume=0.25;
 audio.playbackRate=1.0; // Able to increase speed of song over time
 
 var drop=new Audio(); // Boop Sound for Hard Drop
@@ -32,6 +35,16 @@ drop.volume=1;
 function playDrop(){
     drop.play;
 }
+var left = document.createElement('audio');
+left.src = "../music/Left.mp3";
+var pauseSound = document.createElement('audio');
+pauseSound.src = "../music/Right.mp3";
+var rotateSound = document.createElement('audio');
+rotateSound.src = "../music/Rotate.mp3";
+var linecleared = document.createElement('audio');
+linecleared.src = "../music/lineClear.mp3";
+var tetrislinecleared = document.createElement('audio');
+tetrislinecleared.src = "../music/tetrisLineClear.mp3";
 
 var playGame=true;
 var txf;//used to distinguish from a 3x3 and 4x4
@@ -546,6 +559,7 @@ function swapHold(){
         }
         playerData.swapCount = true;
         checkBlockData();
+        hold();
         
     }
 }
@@ -580,13 +594,19 @@ function lineDel(matrix) {
     }
     if(fs>0){//scores based off tetris wiki
         if(scoreMultiplier>=4){
+            tetrislinecleared.play();
             scoreTetris++;
-            if(scoreTetris>1)//determines if this is a second tetris in a row
+            if(scoreTetris>1){//determines if this is a second tetris in a row
                 score+=(100*scoreMultiplier*3);
-            else
+                tetrislinecleared.play();
+            }
+            else{
+                tetrislinecleared.play();
                 score+=(100*scoreMultiplier*2);
+            }
         }
         else{
+            linecleared.play();
             score+=(100*scoreMultiplier);
             scoreTetris=0;
         }

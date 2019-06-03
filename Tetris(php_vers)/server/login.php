@@ -11,7 +11,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         $_SESSION['username'] = $data['username'];
         $_SESSION['agent'] = md5($_SERVER['HTTP_USER_AGENT']);
         
-        redirect_user('logged_in.php');
+        redirect_user('../');
     } else {
         $errors[] = $data;
     }

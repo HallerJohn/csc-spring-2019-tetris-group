@@ -11,11 +11,13 @@ document.onkeydown = function (event) {//controls
             case 37:
             {       //left arrow key
                 event.preventDefault();
+                left.play();
                 move('x', -1);
                 break;
             }case 39:
             {      //right arrow key
                 event.preventDefault();
+                left.play();
                 move('x', 1);
                 break;
             }case 40:
@@ -40,10 +42,12 @@ document.onkeydown = function (event) {//controls
                 break;
             }case 69:
             {      //'E' key, Clockwise
+                rotateSound.play();
                 Arotate(1);
                 break;
             }case 81:
             {      //'Q' key, Counter-Clockwise
+                rotateSound.play();
                 Arotate(-1);
                 break;
             }case 83:
@@ -56,9 +60,11 @@ document.onkeydown = function (event) {//controls
     }
     switch (event.keyCode){
         case 80 :{ // 'P' key, Pause
+                pauseSound.play();
             paused();
             break;
         }case 27 :{ // 'P' key, Pause
+                pauseSound.play();
                 paused();
                 break;
         }

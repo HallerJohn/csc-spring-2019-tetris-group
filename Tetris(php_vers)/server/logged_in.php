@@ -14,3 +14,7 @@ echo "<h1>Logged In!</h1>
 <p>You are now logged in, {$_SESSION['username']}!</p>
 <p><a href=\"logout.php\">Logout</a></p>";
 ?>
+
+<a href="../game/tetrisStartPage.php">
+    <img src='../pics/homeButton.jpg'>
+</a>

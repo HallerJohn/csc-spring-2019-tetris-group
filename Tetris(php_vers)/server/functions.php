@@ -7,6 +7,7 @@ function redirect_user ($page = 'index.php') {
 	
 	$url .= '/' . $page;
 	
+        console_log('URL = '.$url);
 	header("Location: $url");
 	exit();
 } 

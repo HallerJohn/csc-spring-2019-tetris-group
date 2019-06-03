@@ -68,6 +68,13 @@ function writeNext(){
     
 }
 
+function hold(){
+    var pos = {x: 1, y: 0};
+    holdContext.fillStyle = '#000';
+    holdContext.fillRect(0, 0, holdCanvas.width, holdCanvas.height);
+    writeField(holdContext, playerData.hold, pos);
+}
+
 function draw() {
     context.fillStyle = '#000';
     context.fillRect(0, 4, canvas.width, canvas.height);
